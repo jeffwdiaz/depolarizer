@@ -1,0 +1,261 @@
+/* =============================== */
+/* Theme Variables                 */
+/* =============================== */
+:root {
+    --sidebar-bg: #222c36;
+    --sidebar-text: #fff;
+    --sidebar-selected: #ffb347;
+    --main-bg: #fff;
+    --main-text: #222;
+    --accent: #ffb347;
+    --polarizing: #e57373;
+}
+
+/* =============================== */
+/* Grid Layout System (12 columns) */
+/* =============================== */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0px; /* No gutter between columns by default */
+    margin: 20px;
+    min-height: calc(100vh - 40px); /* account for top/bottom margin */
+    box-sizing: border-box;
+    /* Removed all box-shadow */
+}
+
+/* Sidebar spans columns 1-3 (3/12) */
+.grid-sidebar {
+    grid-column: 1 / span 3;
+    height: 100%;
+    z-index: 10;
+    /* Removed all box-shadow */
+}
+
+/* Main content spans columns 4-9 (6/12) */
+.grid-main-content {
+    grid-column: 4 / span 6;
+    min-width: 0;
+    box-sizing: border-box;
+    /* No box-shadow */
+}
+
+/* =============================== */
+/* Layout Base Styles              */
+/* =============================== */
+body, html {
+    margin: 0;
+    padding: 0;
+    background: var(--main-bg);
+    color: var(--main-text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    height: 100%;
+}
+
+.main-flex-layout {
+    display: contents; /* disables flex, grid now controls layout */
+}
+
+/* =============================== */
+/* Main Content Area Styles        */
+/* =============================== */
+.main-content {
+    margin-left: 0;
+    padding: 0;
+    background: none;
+}
+
+/* =============================== */
+/* Sidebar Styles                  */
+/* =============================== */
+.sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    width: 220px;
+    min-width: 180px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 32px;
+    /* Removed box-shadow: 2px 0 8px rgba(0,0,0,0.04); */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sidebar nav ul li {
+    padding: 12px 32px 12px 24px;
+    cursor: pointer;
+    color: var(--sidebar-text);
+    transition: background 0.2s, color 0.2s;
+    border-radius: 4px 0 0 4px;
+    margin-bottom: 2px;
+}
+
+.sidebar nav ul li.selected {
+    background: var(--sidebar-selected);
+    color: var(--main-bg);
+    font-weight: bold;
+}
+
+.sidebar nav ul li:hover,
+.sidebar nav ul li:focus {
+    background: rgba(255,255,255,0.07);
+    outline: none;
+}
+
+/* =============================== */
+/* Article & Section Styles        */
+/* =============================== */
+.centered-article {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    /* Removed box-shadow: 0 2px 12px rgba(0,0,0,0.03); */
+    padding: 32px 32px 24px 32px;
+}
+
+.header {
+    margin-bottom: 12px;
+}
+
+.header-description {
+    margin-bottom: 24px;
+    color: #666;
+}
+
+.url-input-section {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.url-input {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 16px;
+    border: 1px solid #ccd6dd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+.url-input:focus {
+    border: 1.5px solid var(--accent);
+    outline: none;
+}
+
+.article-section {
+    margin-top: 20px;
+}
+
+.article-meta {
+    font-size: 0.98rem;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.article-body p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.polarizing-language {
+    color: var(--polarizing);
+    font-weight: bold;
+}
+
+/* =============================== */
+/* About Info (Grid Cols 10-12)    */
+/* =============================== */
+.about-info {
+    grid-column: 10 / span 3;
+    align-self: start;
+    background: none;
+    color: #666;
+    margin-bottom: 24px;
+    padding: 0;
+    font-size: 1.08rem;
+}
+
+/* Ensure .header-description is not interfering with .about-info grid placement */
+.header-description.about-info {
+    margin-bottom: 24px;
+}
+
+/* =============================== */
+/* Main Title Styles (Header)      */
+/* =============================== */
+.main-title-center {
+    text-align: center;
+    font-size: 80px;
+    font-family: 'Times New Roman', Times, serif; /* Changed to Times New Roman */
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.main-title {
+    font-size: 80px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    width: 100%;
+}
+
+/* =============================== */
+/* Header Underline (10px Black)   */
+/* =============================== */
+.header-underline {
+    grid-column: 1 / span 12; /* Full 12-column width */
+    width: 100%;
+    height: 10px;
+    background: #000;
+    margin-bottom: 24px; /* Space below the line */
+}
+
+/* =============================== */
+/* Full-Width Header Utility       */
+/* =============================== */
+.full-width-header {
+    grid-column: 1 / span 12;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+/* =============================== */
+/* Utility Classes                 */
+/* =============================== */
+.text-center {
+    text-align: center;
+}
+
+.mt-24 {
+    margin-top: 24px;
+}
+
+/* =============================== */
+/* Utilities                       */
+/* =============================== */
+::-webkit-scrollbar {
+    width: 8px;
+    background: #f0f0f0;
+}
+::-webkit-scrollbar-thumb {
+    background: #c2c2c2;
+    border-radius: 4px;
+}
