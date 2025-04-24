@@ -6,12 +6,15 @@
   import Header from '$lib/Header.svelte';
   import NavMenu from '$lib/NavMenu.svelte';
   import ContentViewer from '$lib/ContentViewer.svelte';
+  import FillerTextBlock from '$lib/FillerTextBlock.svelte';
+  import UrlInput from '$lib/UrlInput.svelte';
+    import FillerImageBlock from '$lib/FillerImageBlock.svelte';
   // Import your modules here
 </script>
 
 <div class="grid-container">
   <!-- Header -->
-  <Header title="The Depolarizer" />
+  <Header />
   
   <!-- Left Column -->
   <div class="left-column">
@@ -19,9 +22,14 @@
       <NavMenu />
     </div>
     
-    <div class="module filter-panel">
-      <!-- Add your filter content here -->
-    </div>
+    <FillerImageBlock />
+
+    <FillerTextBlock />
+    <FillerTextBlock />
+    <FillerTextBlock />
+    <FillerTextBlock />
+    <FillerTextBlock />
+  
   </div>
   
   <!-- Main Column -->
@@ -37,9 +45,14 @@
     <div class="module info-panel">
       <p>Depolarizer is a tool designed to combat division and distrust in society by providing neutral, emotion-free news.</p>
     </div>
-    
-    <div class="module metrics-panel">
-      <!-- Add your statistics content here -->
+
+    <div class="module url-input-module">
+      <UrlInput />
     </div>
+    <FillerTextBlock />
+    <FillerTextBlock />
+    <FillerTextBlock />
+    <FillerTextBlock />
+    <FillerTextBlock />
   </div>
 </div>
