@@ -1,28 +1,45 @@
+<!-- =============================== -->
+<!-- Main Layout Component           -->
+<!-- =============================== -->
 <script lang="ts">
   import '../app.css';
-  import Sidebar from '$lib/Sidebar.svelte';
-  import Article from '$lib/Article.svelte';
   import Header from '$lib/Header.svelte';
-  // Layout logic can go here if needed
+  import NavMenu from '$lib/NavMenu.svelte';
+  import ContentViewer from '$lib/ContentViewer.svelte';
+  // Import your modules here
 </script>
 
-<!-- =============================== -->
-<!-- Main Grid Layout Structure      -->
-<!-- =============================== -->
- 
 <div class="grid-container">
-  <aside class="sidebar grid-sidebar">
-    <Sidebar />
-  </aside>
-  <!-- Full-width header -->
+  <!-- Header -->
   <Header title="The Depolarizer" />
-  <!-- About info in cols 9-12 -->
-  <div class="header-description about-info">
-    <p>Depolarizer is a tool designed to combat division and distrust in society by providing neutral, emotion-free news. It scrapes articles from a diverse set of sources, analyzes their sentiment, and generates balanced summaries to promote informed, rational public discourse and strengthen democracy.</p>
+  
+  <!-- Left Column -->
+  <div class="left-column">
+    <div class="module nav-menu">
+      <NavMenu />
+    </div>
+    
+    <div class="module filter-panel">
+      <!-- Add your filter content here -->
+    </div>
   </div>
-  <main class="main-content grid-main-content">
-    <Article />
-  </main>
+  
+  <!-- Main Column -->
+  <div class="main-column">
+    <div class="module content-viewer">
+      <ContentViewer />
+      <slot /> <!-- This is where child routes will render -->
+    </div>
+  </div>
+  
+  <!-- Right Column -->
+  <div class="right-column">
+    <div class="module info-panel">
+      <p>Depolarizer is a tool designed to combat division and distrust in society by providing neutral, emotion-free news.</p>
+    </div>
+    
+    <div class="module metrics-panel">
+      <!-- Add your statistics content here -->
+    </div>
+  </div>
 </div>
-
-<slot /> <!-- This is where child routes will render -->
