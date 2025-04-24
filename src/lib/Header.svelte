@@ -2,7 +2,7 @@
 <!-- Header Component               -->
 <!-- =============================== -->
 <script lang="ts">
-  export let title: string = "The Depolarizer";
+  export let title: string = "Deconstructed";
 </script>
 
 <header class="header-area">

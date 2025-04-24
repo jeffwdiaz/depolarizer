@@ -2,14 +2,31 @@
 
 - All notable changes to this project will be documented in this file.
 - Each day, create a new version of the project. The first version will be day 32, which is the current state of the project. The next day will be day 33, and so on.
+- Check today's date.
 - If nothing has been done on the day, create an empty entry.
-
-## [Day 35] - 2025-04-24
 
 ## [Day 34] - 2025-04-23
 
+### Added
+
+- Created new FillerImageBlock component with:
+  - Random height and width generation
+  - Shine animation effect
+  - Smooth transitions
+  - Customizable dimensions through props
+- Created new FillerTextBlock component with:
+  - Random paragraph and line generation
+  - Different width ranges for last lines
+  - Smooth transitions
+  - Customizable ranges through props
+
 ### Changed
 
+- Centralized all component styles in app.css:
+  - Moved FillerImageBlock styles to app.css
+  - Moved FillerTextBlock styles to app.css
+  - Added clear section comments for each component's styles
+- Improved code organization by separating component logic from styling
 - Updated header styling:
   - Set header height to 100px
   - Changed font size to 60px
