@@ -7,7 +7,7 @@
 </script>
 
 <nav>
-  <ul>
+  <ul class="nav-menu-list">
     <li>Fox</li>
     <li>CNN</li>
     <li>Reuters</li>
