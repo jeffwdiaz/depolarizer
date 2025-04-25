@@ -3,12 +3,13 @@
 <!-- =============================== -->
 <script lang="ts">
   import '../app.css';
-  import Header from '$lib/Header.svelte';
-  import NavMenu from '$lib/NavMenu.svelte';
-  import ContentViewer from '$lib/ContentViewer.svelte';
-  import FillerTextBlock from '$lib/FillerTextBlock.svelte';
-  import UrlInput from '$lib/UrlInput.svelte';
-    import FillerImageBlock from '$lib/FillerImageBlock.svelte';
+  import Header from '../components/Header.svelte';
+  import NavMenu from '../components/NavMenu.svelte';
+  import ContentViewer from '../components/ContentViewer.svelte';
+  import FillerTextBlock from '../components/FillerTextBlock.svelte';
+  import UrlInput from '../components/UrlInput.svelte';
+  import FillerImageBlock from '../components/FillerImageBlock.svelte';
+  import About from '../components/About.svelte';
   // Import your modules here
 </script>
 
@@ -42,9 +43,7 @@
   
   <!-- Right Column -->
   <div class="right-column">
-    <div class="module info-panel">
-      <p>Depolarizer is a tool designed to combat division and distrust in society by providing neutral, emotion-free news.</p>
-    </div>
+    <About />
 
     <div class="module url-input-module">
       <UrlInput />
