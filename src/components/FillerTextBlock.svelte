@@ -5,11 +5,16 @@
 <!-- =============================== -->
 
 <script lang="ts">
-  // Optional props to override the random ranges
-  export let minParagraphs: number = 2;
-  export let maxParagraphs: number = 4;
-  export let minLinesPerParagraph: number = 3;
-  export let maxLinesPerParagraph: number = 7;
+  import { onMount } from 'svelte';
+  import { paragraphFade, lineFade, getStaggeredDelay } from './animations';
+  
+  // Optional props with default values
+  const { 
+    minParagraphs = 2,
+    maxParagraphs = 4,
+    minLinesPerParagraph = 3,
+    maxLinesPerParagraph = 7
+  } = $props();
   
   /**
    * Generates a random integer between min and max (inclusive)
@@ -66,12 +71,21 @@
   }
 
   // Generate initial random structure
-  let paragraphLines = generateAllParagraphs();
+  let paragraphLines = $state(generateAllParagraphs());
+  let visible = $state(true);
 
   // Regenerate every 10-15 seconds for a dynamic effect
   setInterval(() => {
-    paragraphLines = generateAllParagraphs();
+    visible = false;
+    setTimeout(() => {
+      paragraphLines = generateAllParagraphs();
+      visible = true;
+    }, 200);
   }, getRandomInt(20000, 60000));
+
+  onMount(() => {
+    visible = true;
+  });
 </script>
 
 <!-- Component Structure -->
@@ -79,14 +93,25 @@
 <div class="module filler-text-block">
   <!-- Content wrapper for line elements -->
   <div>
-    <!-- Iterate through each paragraph -->
-    {#each paragraphLines as paragraph}
-      <div class="paragraph">
-        <!-- Generate individual lines with dynamic widths -->
-        {#each paragraph as lineWidth}
-          <div class="line" style="width: {lineWidth}%"></div>
-        {/each}
-      </div>
-    {/each}
+    {#if visible}
+      <!-- Iterate through each paragraph -->
+      {#each paragraphLines as paragraph, pIndex}
+        <div 
+          class="paragraph"
+          in:paragraphFade={{ delay: getStaggeredDelay(pIndex, 100) }}
+        >
+          <!-- Generate individual lines with dynamic widths -->
+          {#each paragraph as lineWidth, lIndex}
+            <div 
+              class="line" 
+              style="width: {lineWidth}%"
+              in:lineFade={{ 
+                delay: getStaggeredDelay(pIndex * paragraph.length + lIndex) 
+              }}
+            ></div>
+          {/each}
+        </div>
+      {/each}
+    {/if}
   </div>
 </div> 
