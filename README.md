@@ -1,4 +1,4 @@
-# Depolarizer
+# deconstructed
 
 ## Problem Statement
 
@@ -39,7 +39,7 @@ src/
 
 ## Project Outline
 
-A tool that scrapes and depolarizes news content from multiple sources. Users can select news categories like Political, Financial, or World news. Initially supporting Political news only. The system scrapes predetermined sites for popular stories, processes them through the depolarizer, and presents neutral, fact-based content.
+A tool that scrapes and deconstructs news content from multiple sources. Users can select news categories like Political, Financial, or World news. Initially supporting Political news only. The system scrapes predetermined sites for popular stories, processes them through the deconstructed, and presents neutral, fact-based content.
 
 ### System Features
 

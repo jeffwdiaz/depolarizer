@@ -55,4 +55,12 @@
     style="height: {height}; width: {widths.second}%"
   >
   </div>
-</div> 
+</div>
+
+<style>
+.filler-image-block {
+  color: #ffffff;
+  padding: 10px !important;
+  overflow: hidden;
+}
+</style> 

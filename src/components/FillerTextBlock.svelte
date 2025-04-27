@@ -114,4 +114,29 @@
       {/each}
     {/if}
   </div>
-</div> 
+</div>
+
+<style>
+.filler-text-block {
+  background-color: var(--primary);
+}
+
+.line {
+  height: 0.8em;
+  background-color: var(--secondary);
+  margin-bottom: 0.5em;
+  border-radius: 2px;
+}
+
+.line:last-child {
+  margin-bottom: 0;
+}
+
+.paragraph {
+  margin-bottom: 1em;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+</style> 
