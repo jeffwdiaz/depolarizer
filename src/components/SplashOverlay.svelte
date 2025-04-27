@@ -7,11 +7,15 @@
 
   // Letters to use in the grid
   const letters = ['d', 'e', 'c', 'o', 'n', 's', 't', 'r', 'u'];
-  let grid: string[][] = [];
-  let delays: number[][] = [];
+  type Cell = {
+    row: number;
+    col: number;
+    letter: string;
+    revealed: boolean;
+  };
+  let cells: Cell[] = [];
   let cols = 0;
   let rows = 0;
-  let revealedGrid: boolean[][] = [];
 
   function handleClick() {
     visible = false;
@@ -26,41 +30,35 @@
     return array;
   }
 
-  function generateGrid() {
+  function generateCells() {
     cols = Math.ceil(window.innerWidth / 100);
     rows = Math.ceil(window.innerHeight / 100);
-    grid = Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => letters[Math.floor(Math.random() * letters.length)])
-    );
-    // Generate a flat array of delays, shuffle, then map to grid shape
-    const total = rows * cols;
-    const baseDelay = 500; // ms between each letter
-    let delayList = Array.from({ length: total }, (_, i) => i * baseDelay);
-    shuffle(delayList);
-    delays = Array.from({ length: rows }, (_, r) =>
-      Array.from({ length: cols }, (_, c) => delayList[r * cols + c])
-    );
-    console.log('generateGrid:', { cols, rows, grid, delays }); // debug grid and delays
-  }
-
-  function resetRevealedGrid() {
-    revealedGrid = Array.from({ length: rows }, () => Array(cols).fill(false));
-  }
-
-  async function revealLettersStaggered() {
-    // Create a flat list of all grid positions
-    const positions: [number, number][] = [];
+    cells = [];
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        positions.push([r, c]);
+        cells.push({
+          row: r,
+          col: c,
+          letter: letters[Math.floor(Math.random() * letters.length)],
+          revealed: false
+        });
       }
     }
-    // Shuffle the positions
-    shuffle(positions);
-    // Reveal each letter in shuffled order
-    for (const [r, c] of positions) {
-      revealedGrid[r][c] = true;
-      await new Promise(res => setTimeout(res, 400)); // 40ms per letter
+  }
+
+  function resetRevealedCells() {
+    for (const cell of cells) {
+      cell.revealed = false;
+    }
+  }
+
+  async function revealCellsStaggered() {
+    const shuffled = shuffle([...cells]);
+    for (const cell of shuffled) {
+      cell.revealed = true;
+      cells = cells; // Trigger Svelte reactivity
+      await tick();
+      await new Promise(res => setTimeout(res, 40));
     }
   }
 
@@ -68,16 +66,15 @@
     const updateGrid = async () => {
       mounted = false;
       gridKey += 1;
-      await tick(); // Wait for DOM to update and remove the grid
-      generateGrid();
-      resetRevealedGrid();
-      await tick(); // Wait for DOM to update with new grid
-      // Delay mounting the grid to trigger transitions
+      await tick();
+      generateCells();
+      resetRevealedCells();
+      await tick();
       setTimeout(async () => {
         mounted = true;
         await tick();
-        revealLettersStaggered();
-      }, 1000); // 1000ms delay; adjust as needed
+        revealCellsStaggered();
+      }, 1000);
     };
 
     updateGrid();
@@ -92,17 +89,17 @@
     {#if mounted}
       {#key gridKey}
         <div class="letter-grid" aria-hidden="true">
-          {#each grid as row, rowIdx (rowIdx)}
+          {#each Array(rows) as _, rowIdx}
             <div class="grid-row">
-              {#each row as letter, colIdx (`${rowIdx}-${colIdx}`)}
-                {#if revealedGrid[rowIdx] && revealedGrid[rowIdx][colIdx]}
-                  <span
-                    class="grid-letter"
-                    transition:fade={{ duration: 800 }}
-                  >
-                    {letter}
-                  </span>
-                {/if}
+              {#each Array(cols) as _, colIdx}
+                {@const cell = cells.find(cell => cell.row === rowIdx && cell.col === colIdx)}
+                <span
+                  class="grid-letter"
+                  style="opacity: {cell && cell.revealed ? 1 : 0}; transition: opacity 0.8s;"
+                  transition:fade|local={{ duration: 800 }}
+                >
+                  {cell ? cell.letter : ''}
+                </span>
               {/each}
             </div>
           {/each}

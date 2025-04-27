@@ -1,35 +1,12 @@
 # Changelog
 
-- All notable changes to this project will be documented in this file.
-- Each day, create a new version of the project. The first version will be day 32, which is the current state of the project. The next day will be day 33, and so on.
-- Check today's date.
-- If nothing has been done on the day, create an empty entry.
+## [P 37] - Sunday - 2025-04-27
 
-## [Day 48] - Saturday - 2025-05-10
+### Changed
 
-## [Day 47] - **Thursday** - 2025-05-08
-
-## [Day 46] - Wednesday - 2025-05-07
-
-## [Day 45] - Tuesday - 2025-05-06
-
-## [Day 44] - Monday - 2025-05-05
-
-## [Day 43] - Sunday - 2025-05-04
-
-## [Day 42] - Saturday - 2025-05-03
-
-## [Day 41] - **Thursday** - 2025-05-01
-
-## [Day 40] - Wednesday - 2025-04-30
-
-## [Day 39] - Tuesday - 2025-04-29
-
-## [Day 38] - Monday - 2025-04-28
-
-## [Day 37] - Sunday - 2025-04-27
-
-## [Day 36] - Saturday - 2025-04-26
+- Splash grid animation now reveals letters in a randomized order for a more dynamic effect.
+- Explicitly set Garamond font for grid letters to ensure consistent typography.
+- Improved animation timing and style consistency in SplashOverlay.
 
 ## [Day 35] - **Thursday** - 2025-04-24
 

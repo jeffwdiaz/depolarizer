@@ -47,7 +47,8 @@
 
 ## User Interface
 
-- [ ] Design and implement basic UI
+- [x] Design and implement basic UI
+- [x] Implement animated splash overlay with randomized grid reveal and Garamond font
 - [ ] Create news category selection
 - [ ] Implement results display
 - [ ] Add source attribution display
