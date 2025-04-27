@@ -35,8 +35,8 @@
       {#each menuItems as item, i}
         <li 
           class:selected={item.selected}
-          on:mouseenter={() => hoveredIndex = i}
-          on:mouseleave={() => hoveredIndex = null}
+          onmouseenter={() => hoveredIndex = i}
+          onmouseleave={() => hoveredIndex = null}
           style:background-color={hoveredIndex === i && !item.selected ? 'var(--nav-menu-hover)' : 
                                 item.selected ? 'var(--accent)' : 'transparent'}
           style:color={item.selected ? 'var(--main-bg)' : 'var(--main-text)'}
@@ -46,4 +46,31 @@
       {/each}
     </ul>
   {/if}
-</nav> 
+</nav>
+
+<style>
+.nav-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.nav-menu-list li {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.nav-menu-list li:hover {
+  background-color: var(--nav-menu-hover);
+}
+
+.nav-menu-list li.selected {
+  background-color: var(--accent);
+  color: var(--main-bg);
+  font-weight: 500;
+}
+</style> 

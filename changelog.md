@@ -119,7 +119,7 @@
 ### Added
 
 - Initial changelog file created in the process folder.
-- Frontend layout and styling for Depolarizer implemented.
+- Frontend layout and styling for deconstructed implemented.
 - Article section and polarizing-language markup added.
 - Project summary added to header description.
 

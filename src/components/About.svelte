@@ -1,5 +1,5 @@
 <div class="module info-panel">
-  <p>Depolarizer is a tool designed to combat division and distrust in society by providing neutral, emotion-free news.</p>
+  <p>deconstructed is a tool designed to combat division and distrust in society by providing neutral, emotion-free news.</p>
 </div>
 
 <style>

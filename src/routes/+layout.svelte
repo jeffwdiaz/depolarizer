@@ -10,8 +10,11 @@
   import UrlInput from '../components/UrlInput.svelte';
   import FillerImageBlock from '../components/FillerImageBlock.svelte';
   import About from '../components/About.svelte';
+  import SplashOverlay from '../components/SplashOverlay.svelte';
   // Import your modules here
 </script>
+
+<SplashOverlay />
 
 <div class="grid-container">
   <!-- Header -->
