@@ -1,5 +1,7 @@
 # Node.js dependencies
-node_modules/**
+node_modules/
+frontend/node_modules/
+backend/node_modules/
 .cursor/** 
 
 # Output directories from various hosts/builds
@@ -7,8 +9,10 @@ node_modules/**
 .vercel        # Vercel deployment output
 .netlify       # Netlify deployment output
 .wrangler      # Cloudflare Wrangler output
-/.svelte-kit   # SvelteKit build output
+/.svelte-kit   # SvelteKit build output (legacy, now in frontend/)
+/frontend/.svelte-kit   # SvelteKit build output (frontend)
 /build         # Production build output
+/frontend/build         # Frontend production build output
 
 # OS-specific files
 .DS_Store      # macOS Finder metadata
