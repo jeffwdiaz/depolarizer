@@ -27,3 +27,6 @@ Thumbs.db      # Windows Explorer thumbnail cache
 # Vite-specific timestamped config files
 vite.config.js.timestamp-*   # Vite JS config with timestamp
 vite.config.ts.timestamp-*   # Vite TS config with timestamp
+
+# Project-specific directories
+archive/**     # Archived project files and directories
