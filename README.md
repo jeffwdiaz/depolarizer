@@ -4,9 +4,11 @@
 
 ```
 depolarizer/
-  backend/      # Node.js/Express backend
-    index.js
-    package.json
+  backend/      # FastAPI backend (Python, LLM integration)
+    main.py
+    requirements.txt
+    articles/   # Articles to analyze (Markdown files)
+    context/    # Context files (Markdown files)
     ...
   frontend/     # SvelteKit frontend
     src/
@@ -36,20 +38,34 @@ depolarizer/
 1. Install dependencies:
    ```sh
    cd backend
-   npm install
+   pip install -r requirements.txt
    ```
 2. Start the backend server:
    ```sh
-   node index.js
+   uvicorn main:app --reload
    ```
 
-The backend will run on port 3001 by default. The frontend will run on its configured port (usually 5173).
+The backend will run on port 8000 by default. The frontend will run on its configured port (usually 5173).
+
+---
+
+## Backend LLM Integration
+
+- The backend is built with **FastAPI** (Python) and integrates with the **OpenRouter LLM API**.
+- **Articles to analyze** are placed in `backend/articles/` as Markdown files.
+- **Context files** are placed in `backend/context/` as Markdown files.
+- The `/analyze` endpoint accepts:
+  - `article_filename`: the name of the article in `backend/articles` to analyze.
+  - `text`: the user's question or instruction.
+- The backend loads all context files, builds a structured prompt (with clear separation between context and main article), and sends it to the LLM for analysis.
+- If the article file is not found, a generic error is returned.
+- **Planned:** Add support for scraping article content from a URL for analysis using the same context mechanism.
 
 ---
 
 ## Notes
 - Adjust ports and proxy settings as needed for integration.
-- Add your backend API routes in `backend/index.js` or split into separate files as your backend grows.
+- Add your backend API routes in `backend/main.py` or split into separate files as your backend grows.
 - For shared code, create a `shared/` directory at the root.
 
 ## Problem Statement
@@ -66,11 +82,18 @@ Our society is facing a growing crisis of division and distrust, fueled in part 
 - **Fonts**: Google Fonts (Rubik)
 - **Animations**: Svelte built-in transitions
 
+### Backend Components
+
+- **Framework**: FastAPI (Python)
+- **LLM Integration**: OpenRouter API
+- **HTTP Client**: httpx
+- **Environment Management**: python-dotenv
+
 ### Development Environment
 
 - **Version Control**: Git
 - **IDE**: VS Code with Cursor
-- **Package Manager**: npm
+- **Package Manager**: npm (frontend), pip (backend)
 
 ### Core Features
 
@@ -79,6 +102,7 @@ Our society is facing a growing crisis of division and distrust, fueled in part 
 - Centralized animation system
 - Type-safe development
 - Modern CSS practices
+- LLM-powered article analysis
 
 ### Directory Structure
 
@@ -201,6 +225,13 @@ A tool that scrapes and deconstructs news content from multiple sources. Users c
 - [ ] Ensure accessibility
 
 ### Backend Implementation
+
+#### LLM Integration
+- [x] Set up FastAPI backend
+- [x] Integrate OpenRouter LLM API
+- [x] Load context files from backend/context
+- [x] Analyze a specified article from backend/articles using context
+- [ ] [Future] Support analyzing articles scraped from URLs
 
 #### Data Configuration
 - [ ] Set up news sources

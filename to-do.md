@@ -37,6 +37,7 @@
 - [ ] Implement rate limiting and quotas
 - [ ] Create retry logic for failed requests
 - [ ] Implement content validation and cleaning
+- [ ] **[Planned] Add ability to scrape article content from a URL and analyze it**
 
 ## Depolarization Algorithm
 
@@ -44,6 +45,14 @@
 - [ ] Create algorithm for identifying emotionally charged language
 - [ ] Develop fact cross-referencing system
 - [ ] Implement neutral summary generation
+
+## LLM Integration (Backend)
+
+- [x] Set up FastAPI backend
+- [x] Integrate OpenRouter LLM API
+- [x] Load context files from backend/context
+- [x] Analyze a specified article from backend/articles using context
+- [ ] [Future] Support analyzing articles scraped from URLs
 
 ## User Interface
 
