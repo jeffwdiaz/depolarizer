@@ -1,4 +1,56 @@
-# deconstructed
+# Depolarizer
+
+## Project Structure
+
+```
+depolarizer/
+  backend/      # Node.js/Express backend
+    index.js
+    package.json
+    ...
+  frontend/     # SvelteKit frontend
+    src/
+    static/
+    package.json
+    ...
+  README.md
+  ...
+```
+
+## Getting Started
+
+### Frontend
+
+1. Install dependencies:
+   ```sh
+   cd frontend
+   npm install
+   ```
+2. Run the development server:
+   ```sh
+   npm run dev
+   ```
+
+### Backend
+
+1. Install dependencies:
+   ```sh
+   cd backend
+   npm install
+   ```
+2. Start the backend server:
+   ```sh
+   node index.js
+   ```
+
+The backend will run on port 3001 by default. The frontend will run on its configured port (usually 5173).
+
+---
+
+## Notes
+- Adjust ports and proxy settings as needed for integration.
+- Add your backend API routes in `backend/index.js` or split into separate files as your backend grows.
+- For shared code, create a `shared/` directory at the root.
 
 ## Problem Statement
 
