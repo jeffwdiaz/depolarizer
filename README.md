@@ -76,10 +76,10 @@ Our society is facing a growing crisis of division and distrust, fueled in part 
 
 ### Frontend Components
 
-- **Framework**: SvelteKit (with Svelte 5)
+- **Framework**: SvelteKit (with Svelte 5 Runes)
 - **Language**: TypeScript
-- **Styling**: CSS with CSS Variables
-- **Fonts**: Google Fonts (Rubik)
+- **Styling**: CSS with CSS Variables (component-scoped and global)
+- **Fonts**: Google Fonts (EB Garamond)
 - **Animations**: Svelte built-in transitions
 
 ### Backend Components
@@ -98,11 +98,12 @@ Our society is facing a growing crisis of division and distrust, fueled in part 
 ### Core Features
 
 - Responsive grid layout
-- Component-based architecture
-- Centralized animation system
+- Component-based architecture (using barrel file for imports)
+- Centralized animation system (`animations.ts`)
 - Type-safe development
-- Modern CSS practices
-- LLM-powered article analysis
+- Modern CSS practices (global theme, scoped component styles)
+- LLM-powered article analysis (Backend)
+- Interactive splash screen
 
 ### Directory Structure
 

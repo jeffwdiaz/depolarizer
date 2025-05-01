@@ -1,18 +1,18 @@
 # Node.js dependencies
 node_modules/
 frontend/node_modules/
-backend/node_modules/
-.cursor/** 
+# backend/node_modules/ # Removed as backend is Python/pip, not Node
+
+# Cursor AI state
+.cursor/
 
 # Output directories from various hosts/builds
-.output        # Generic output directory (some hosts)
-.vercel        # Vercel deployment output
-.netlify       # Netlify deployment output
-.wrangler      # Cloudflare Wrangler output
-/.svelte-kit   # SvelteKit build output (legacy, now in frontend/)
-/frontend/.svelte-kit   # SvelteKit build output (frontend)
-/build         # Production build output
-/frontend/build         # Frontend production build output
+.output/       # Generic output directory (some hosts)
+.vercel/       # Vercel deployment output
+.netlify/      # Netlify deployment output
+.wrangler/     # Cloudflare Wrangler output
+frontend/.svelte-kit/ # SvelteKit build output (frontend)
+frontend/build/    # Frontend production build output
 
 # OS-specific files
 .DS_Store      # macOS Finder metadata
@@ -28,5 +28,12 @@ Thumbs.db      # Windows Explorer thumbnail cache
 vite.config.js.timestamp-*   # Vite JS config with timestamp
 vite.config.ts.timestamp-*   # Vite TS config with timestamp
 
+# Python virtual environment
+.venv/         # Python virtual environment directory
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
 # Project-specific directories
-archive/**     # Archived project files and directories
+archive/       # Archived project files and directories

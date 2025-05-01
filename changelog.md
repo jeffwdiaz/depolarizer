@@ -1,5 +1,45 @@
 # Changelog
 
+## 2025-05-01 - Thursday
+### Added
+- Barrel file (`frontend/src/components/index.ts`) for centralized component exports.
+- Focus styling and keyboard accessibility (`role`, `tabindex`, `on:keydown`) for static letters in `SplashOverlay.svelte`.
+- Svelte 5 Runes (`$state`) for reactive state management in `SplashOverlay.svelte`.
+
+### Changed
+- **Component Refactoring & CSS Organization**:
+  - Refactored `SplashOverlay.svelte`:
+    - Click handler now only triggers on static "deconstructed" letters.
+    - Overlay dismissal requires clicking specific letters or using keyboard (Enter/Space).
+    - Removed click handler from main overlay container.
+  - Refactored `RandomTextBox.svelte`:
+    - Changed from character grid to generating realistic-looking random text paragraphs.
+    - Simplified to generate static text by default, with optional `refreshInterval` prop.
+    - Scoped styles directly in the component using `<style>` block.
+    - Corrected props definition to use standard `export let` and added `refreshInterval` typing.
+  - Updated CSS organization across components (`Header.svelte`, `About.svelte`, `ContentViewer.svelte`, `RandomTextBox.svelte`):
+    - Moved component-specific styles from `app.css` into respective component files.
+    - Ensured components use global `.module` class for container styling.
+    - Ensured components utilize global theme variables (e.g., `var(--font-serif)`, `var(--main-bg)`).
+- **Imports & Structure**:
+  - Standardized component imports in `frontend/src/routes/+layout.svelte` to use the barrel file.
+  - Updated `frontend/src/components/index.ts` to export all relevant components.
+- **Layout & Styling**:
+  - Updated `Header.svelte` styling:
+    - Corrected underline visibility (`background: var(--main-bg)`).
+    - Added smooth opacity transition on mount.
+    - Ensured proper `grid-area: header;` is set.
+  - Updated `frontend/src/routes/+layout.svelte` grid definition for clarity.
+
+### Fixed
+- Corrected props syntax in `Header.svelte` (removed `$props()` and `$state()`).
+- Resolved potential import issues by ensuring all used components are exported from `frontend/src/components/index.ts`.
+- Fixed reactivity issues in `RandomTextBox.svelte` when `refreshInterval` is used.
+
+### Removed
+- Unused `frontend/src/components/RandomTextBox.css` file.
+- Redundant styles from `app.css` (styles now scoped within components).
+
 ## 2025-04-30 - Wednesday
 ### Changed
 - Modified splash grid animation:

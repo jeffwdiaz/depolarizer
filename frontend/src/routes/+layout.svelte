@@ -3,22 +3,23 @@
 <!-- =============================== -->
 <script lang="ts">
   import '../app.css';
-  import Header from '../components/Header.svelte';
-  import NavMenu from '../components/NavMenu.svelte';
-  import ContentViewer from '../components/ContentViewer.svelte';
-  import FillerTextBlock from '../components/FillerTextBlock.svelte';
-  import UrlInput from '../components/UrlInput.svelte';
-  import FillerImageBlock from '../components/FillerImageBlock.svelte';
-  import About from '../components/About.svelte';
-  import SplashOverlay from '../components/SplashOverlay.svelte';
-  import { RandomTextBox } from '../components';
+  import {
+    Header,
+    NavMenu,
+    ContentViewer,
+    FillerTextBlock,
+    UrlInput,
+    FillerImageBlock,
+    About,
+    SplashOverlay,
+    RandomTextBox
+  } from '../components';
   // Import your modules here
 </script>
 
 <SplashOverlay />
 
 <div class="grid-container">
-  <!-- Header -->
   <Header />
   
   <!-- Left Column -->
@@ -56,3 +57,18 @@
 
   </div>
 </div>
+
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header header header header header header header header header header header header"
+      "left left left main main main main main main right right right";
+    gap: 10px;
+    padding: 10px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+</style>

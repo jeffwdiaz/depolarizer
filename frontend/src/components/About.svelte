@@ -1,12 +1,15 @@
-<div class="module info-panel">
+<!-- =============================== -->
+<!-- About Component                -->
+<!-- Displays project information   -->
+<!-- =============================== -->
+
+<div class="module about-info">
   <p>deconstructed is a tool designed to combat division and distrust in society by providing neutral, emotion-free news.</p>
 </div>
 
 <style>
-  .info-panel {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: var(--surface-2);
+  .about-info {
+    font-family: var(--font-serif);
   }
 
   p {
