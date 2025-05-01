@@ -78,6 +78,9 @@
 <style>
   .random-text {
     font-family: var(--font-serif);
+    border: none;
+    margin: 0;
+    padding: 0;
   }
   
   p {

@@ -43,7 +43,7 @@
     background: var(--color-text);
     color: var(--color-background);
     width: 100%;
-    height: var(--header-height);
+    height: 150px; /* Use fixed height */
     position: relative;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
