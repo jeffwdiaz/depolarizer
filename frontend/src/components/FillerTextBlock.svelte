@@ -118,12 +118,12 @@
 
 <style>
 .filler-text-block {
-  background-color: var(--primary);
+  background-color: var(--color-background);
 }
 
 .line {
   height: 0.8em;
-  background-color: var(--secondary);
+  background-color: var(--color-background);
   margin-bottom: 0.5em;
   border-radius: 2px;
 }

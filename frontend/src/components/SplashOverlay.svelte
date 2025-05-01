@@ -193,7 +193,7 @@
   z-index: 1;
 }
 .grid-letter.static {
-  color: var(--accent, #fd3232);
+  color: var(--color-highlight, #fd3232);
   font-weight: bold;
   opacity: 1 !important;
   cursor: pointer;

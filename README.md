@@ -1,76 +1,12 @@
-# Depolarizer
+# deconstructed
 
-## Project Structure
+## Project Overview
 
-```
-depolarizer/
-  backend/      # FastAPI backend (Python, LLM integration)
-    main.py
-    requirements.txt
-    articles/   # Articles to analyze (Markdown files)
-    context/    # Context files (Markdown files)
-    ...
-  frontend/     # SvelteKit frontend
-    src/
-    static/
-    package.json
-    ...
-  README.md
-  ...
-```
+`deconstructed` is a web application designed to combat division and distrust by presenting news content in a neutral, emotion-free manner. It fetches articles, analyzes them using an LLM backend (integrated with OpenRouter), and displays the deconstructed content through a SvelteKit frontend.
 
-## Getting Started
+## Project Goal
 
-### Frontend
-
-1. Install dependencies:
-   ```sh
-   cd frontend
-   npm install
-   ```
-2. Run the development server:
-   ```sh
-   npm run dev
-   ```
-
-### Backend
-
-1. Install dependencies:
-   ```sh
-   cd backend
-   pip install -r requirements.txt
-   ```
-2. Start the backend server:
-   ```sh
-   uvicorn main:app --reload
-   ```
-
-The backend will run on port 8000 by default. The frontend will run on its configured port (usually 5173).
-
----
-
-## Backend LLM Integration
-
-- The backend is built with **FastAPI** (Python) and integrates with the **OpenRouter LLM API**.
-- **Articles to analyze** are placed in `backend/articles/` as Markdown files.
-- **Context files** are placed in `backend/context/` as Markdown files.
-- The `/analyze` endpoint accepts:
-  - `article_filename`: the name of the article in `backend/articles` to analyze.
-  - `text`: the user's question or instruction.
-- The backend loads all context files, builds a structured prompt (with clear separation between context and main article), and sends it to the LLM for analysis.
-- If the article file is not found, a generic error is returned.
-- **Planned:** Add support for scraping article content from a URL for analysis using the same context mechanism.
-
----
-
-## Notes
-- Adjust ports and proxy settings as needed for integration.
-- Add your backend API routes in `backend/main.py` or split into separate files as your backend grows.
-- For shared code, create a `shared/` directory at the root.
-
-## Problem Statement
-
-Our society is facing a growing crisis of division and distrust, fueled in part by the emotionally charged content that dominates our news landscape. Millennials and older Americans, who are active participants in our democracy, are constantly bombarded with news that evokes anger, fear, hatred, and outrage. This constant barrage of negativity makes it difficult for them to form balanced, well-informed opinions and engage in constructive dialogue. The potential impact of addressing this problem is huge. By providing access to neutral, emotion-free news, we can promote a more informed and rational public discourse, foster greater understanding and empathy between different groups, and ultimately strengthen our democracy.
+The primary goal is to provide users with a tool that helps them understand news events without the emotional charge often found in standard reporting. By stripping away polarizing language and focusing on factual content, the project aims to foster more informed and rational public discourse.
 
 ## Tech Stack
 
@@ -78,9 +14,9 @@ Our society is facing a growing crisis of division and distrust, fueled in part 
 
 - **Framework**: SvelteKit (with Svelte 5 Runes)
 - **Language**: TypeScript
-- **Styling**: CSS with CSS Variables (component-scoped and global)
-- **Fonts**: Google Fonts (EB Garamond)
-- **Animations**: Svelte built-in transitions
+- **Styling**: CSS with CSS Variables (component-scoped and global styles defined in `src/styles`)
+- **Fonts**: Google Fonts (imported via `src/styles/fonts.css`)
+- **Animations**: Svelte built-in transitions and custom animations (`src/components/animations.ts`)
 
 ### Backend Components
 
@@ -95,30 +31,124 @@ Our society is facing a growing crisis of division and distrust, fueled in part 
 - **IDE**: VS Code with Cursor
 - **Package Manager**: npm (frontend), pip (backend)
 
-### Core Features
-
-- Responsive grid layout
-- Component-based architecture (using barrel file for imports)
-- Centralized animation system (`animations.ts`)
-- Type-safe development
-- Modern CSS practices (global theme, scoped component styles)
-- LLM-powered article analysis (Backend)
-- Interactive splash screen
-
-### Directory Structure
+## Folder Structure
 
 ```text
-src/
-├── components/       # Reusable components
-├── routes/           # Page routes
-└── styles/           # Global styles and theme
+destructured/
+├── backend/          # FastAPI backend (Python, LLM integration)
+│   ├── articles/     # Example articles for analysis (Markdown)
+│   ├── context/      # Context files for LLM analysis (Markdown)
+│   ├── __pycache__/  # Python cache (ignored)
+│   ├── main.py       # FastAPI app entry point
+│   └── requirements.txt # Python dependencies
+├── frontend/         # SvelteKit frontend
+│   ├── src/
+│   │   ├── components/ # Reusable Svelte components
+│   │   │   └── index.ts  # Barrel file for component exports
+│   │   ├── routes/     # SvelteKit page routes (+layout.svelte, +page.svelte)
+│   │   └── styles/     # Global CSS files (app.css, colors.css, fonts.css)
+│   ├── static/       # Static assets (e.g., favicon)
+│   ├── node_modules/ # Node.js dependencies (ignored)
+│   ├── .svelte-kit/  # SvelteKit build files (ignored)
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── svelte.config.js
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── .cursor/          # Cursor configuration/rules
+├── .venv/            # Python virtual environment (ignored)
+├── archive/          # Archived files (ignored)
+├── .env              # Environment variables (ignored)
+├── .gitignore        # Git ignore configuration
+├── .npmrc            # Npm configuration
+├── changelog.md      # Project changelog
+├── LICENSE           # Project license
+├── README.md         # This file
+└── to-do.md          # Project to-do list
 ```
 
-## Project Outline
+## Getting Started
 
-A tool that scrapes and deconstructs news content from multiple sources. Users can select news categories like Political, Financial, or World news. Initially supporting Political news only. The system scrapes predetermined sites for popular stories, processes them through the deconstructed, and presents neutral, fact-based content.
+### Prerequisites
 
-### System Features
+- Node.js and npm
+- Python and pip
+- Git
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd deconstructed
+    ```
+2.  **Backend Setup:**
+    ```bash
+    cd backend
+    python -m venv ../.venv # Create virtual env in root .venv folder
+    # Activate the virtual environment (adjust for your OS/shell)
+    # Windows (Git Bash/Linux Subsystem):
+    source ../.venv/Scripts/activate
+    # Windows (Command Prompt):
+    ..\.venv\Scripts\activate.bat
+    # Windows (PowerShell):
+    ..\.venv\Scripts\Activate.ps1
+    pip install -r requirements.txt
+    # Create a .env file in the *project root* (/) and add your OPENROUTER_API_KEY
+    # Example .env:
+    # OPENROUTER_API_KEY=sk-or-...
+    cd ..
+    ```
+3.  **Frontend Setup:**
+    ```bash
+    cd frontend
+    npm install
+    cd ..
+    ```
+
+### Running the Application
+
+1.  **Start the Backend Server:**
+    *(Ensure your virtual environment is activated)*
+    ```bash
+    cd backend
+    uvicorn main:app --reload
+    # Server runs at http://localhost:8000
+    cd ..
+    ```
+2.  **Start the Frontend Dev Server:**
+    ```bash
+    cd frontend
+    npm run dev -- --open
+    # App runs at http://localhost:5173 (or next available port)
+    ```
+
+## Backend LLM Integration Details
+
+- Uses **FastAPI**.
+- Integrates with **OpenRouter LLM API** (requires `OPENROUTER_API_KEY` in root `.env` file).
+- Analyzes articles from `backend/articles/` using context from `backend/context/`.
+- `/analyze` endpoint takes `article_filename` and user `text` (question/instruction).
+- Constructs a prompt for the LLM, combining context and the article content.
+- Handles file not found errors.
+- **Planned:** Support scraping articles directly from URLs.
+
+## Core Features
+
+- Responsive grid layout using CSS Grid.
+- Component-based architecture (Svelte 5 Runes) with barrel file exports.
+- Centralized CSS theming (`src/styles/colors.css`, `src/styles/fonts.css`).
+- Scoped component styles alongside global styles (`src/styles/app.css`).
+- Type-safe development with TypeScript.
+- LLM-powered article analysis via FastAPI backend.
+- Interactive splash screen on load.
+- Standardized CSS variable naming and usage.
+
+## Project Outline (Original)
+
+A tool that scrapes and deconstructs news content from multiple sources. Users can select news categories like Political, Financial, or World news. Initially supporting Political news only. The system scrapes predetermined sites for popular stories, processes them through the deconstructor, and presents neutral, fact-based content.
+
+### System Features (Original)
 
 - Multi-source news aggregation
 - Political bias detection
@@ -126,7 +156,7 @@ A tool that scrapes and deconstructs news content from multiple sources. Users c
 - Fact-based content generation
 - Source diversity (left/center/right)
 
-## Implementation Steps
+## Implementation Steps (Original)
 
 ### 1. User Selection and Processing
 
@@ -190,9 +220,9 @@ A tool that scrapes and deconstructs news content from multiple sources. Users c
     - Use cache
     - Alert admins
 
-## Development Status
+## Development Status (Legacy - See `to-do.md`)
 
-### Frontend Implementation
+### Frontend Implementation (Legacy)
 
 #### Initial Setup
 - [x] Initialize project
@@ -200,32 +230,32 @@ A tool that scrapes and deconstructs news content from multiple sources. Users c
 - [x] Configure dev environment
 - [x] Set up version control
 
-#### Project Organization
+#### Project Organization (Legacy)
 - [x] Create directory structure
 - [x] Configure project
 - [x] Set up Git
 - [x] Add gitignore
 
-#### Component Development
+#### Component Development (Legacy)
 - [x] Build header
 - [x] Create navigation
 - [x] Add content viewer
 - [x] Create URL input
 - [x] Add placeholders
 
-#### Visual Design
+#### Visual Design (Legacy)
 - [x] Implement grid layout
 - [x] Set up CSS system
 - [x] Add fonts
 - [x] Create animations
 
-#### User Interface
+#### User Interface (Legacy)
 - [x] Add category selector
 - [ ] Show loading states
 - [ ] Create feedback system
 - [ ] Ensure accessibility
 
-### Backend Implementation
+### Backend Implementation (Legacy)
 
 #### LLM Integration
 - [x] Set up FastAPI backend
@@ -234,28 +264,16 @@ A tool that scrapes and deconstructs news content from multiple sources. Users c
 - [x] Analyze a specified article from backend/articles using context
 - [ ] [Future] Support analyzing articles scraped from URLs
 
-#### Data Configuration
+#### Data Configuration (Legacy)
 - [ ] Set up news sources
 - [ ] Add source categories
 - [ ] Configure metadata
 - [ ] Validate sources
 
-#### Content Management
+#### Content Management (Legacy)
 - [ ] Extract articles
 - [ ] Clean content
 - [ ] Detect duplicates
 - [ ] Validate content
 
-### Quality Assurance
-
-#### Testing Implementation
-- [ ] Add component tests
-- [ ] Test integration
-- [ ] Add E2E tests
-- [ ] Test performance
-
-#### Documentation Management
-- [x] Document technical details
-- [ ] Write user guide
-- [ ] Document API
-- [ ] Create deployment guide
+### Quality Assurance (Legacy)

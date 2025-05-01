@@ -55,7 +55,7 @@
 
   .article-meta {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--color-text);
     margin-bottom: 1.5rem;
   }
 
@@ -72,7 +72,7 @@
   }
 
   .polarizing-language {
-    color: var(--polarizing);
+    color: var(--color-highlight);
   }
 
   .url-input-container {
