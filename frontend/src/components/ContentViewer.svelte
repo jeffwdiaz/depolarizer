@@ -44,7 +44,7 @@
 
 <style>
   .content-viewer {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans-serif);
   }
 
   h2 {
