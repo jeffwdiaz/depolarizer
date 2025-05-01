@@ -1,14 +1,11 @@
-@import './styles/fonts.css';
+@import './fonts.css';
+@import './colors.css';
 
 /* =============================== */
 /* Theme Variables                 */
 /* =============================== */
 :root {
-    /* Colors */
-    --color-primary: #000000;
-    --secondary: #ffffff;
-    --accent: #fd3232;
-    --polarizing: #e57373;
+    
 
     --main-bg: var(--secondary);
     --main-text: var(--color-primary);
@@ -22,13 +19,7 @@
     
     --nav-menu-hover: rgba(253, 50, 50, 0.1);
     
-    /* Fonts */
-    --font-size: 16px;
-    --font-size-title: 70px;
-
-    --font-serif: 'EB Garamond', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-    --font-sans-serif: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-    --font-mono: 'Courier New', Courier, monospace;
+    
 
     /* Header */
     --header-height: 150px;

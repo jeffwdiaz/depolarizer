@@ -1,0 +1,15 @@
+/* =============================== */
+/* Theme Color Variables           */
+/* =============================== */
+
+:root {
+  --color-background: #1a1a1a;
+  --color-text: #f5f5f5;
+  --color-highlight: #fc2121;
+}
+
+/* =============================== */
+/* Color Utility Classes           */
+/* =============================== */
+
+/* Add color utility classes here */ 

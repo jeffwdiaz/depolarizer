@@ -2,18 +2,19 @@
 <!-- Main Layout Component           -->
 <!-- =============================== -->
 <script lang="ts">
-  import '../app.css';
+  import '../styles/app.css';
   import {
     Header,
     NavMenu,
     ContentViewer,
-    FillerTextBlock,
     UrlInput,
+    RandomTextBox,
+    FillerTextBlock,
     FillerImageBlock,
     About,
-    SplashOverlay,
-    RandomTextBox
+    SplashOverlay
   } from '../components';
+  import type { LayoutData } from './$types';
   // Import your modules here
 </script>
 
