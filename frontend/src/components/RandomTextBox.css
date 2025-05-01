@@ -1,0 +1,88 @@
+/* =============================== */
+/* Random Text Box Styles           */
+/* =============================== */
+
+/* Base styles */
+.random-text-box {
+  padding: 1rem;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+}
+
+.character-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.character-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.character {
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+/* Theme: Default */
+.random-text-box.default {
+  background: transparent;
+}
+
+.default .character {
+  background: transparent;
+  color: var(--main-text, #000);
+}
+
+/* Theme: Dark */
+.random-text-box.dark {
+  background-color: var(--dark-bg, #2a2a2a);
+}
+
+.dark .character {
+  background-color: var(--dark-line, #404040);
+  color: var(--text-light, #e0e0e0);
+}
+
+/* Theme: Colorful */
+.random-text-box.colorful {
+  background-color: var(--colorful-bg, #f0f7ff);
+}
+
+.colorful .character {
+  background-color: var(--colorful-line, #90caf9);
+  color: var(--text-dark, #1a1a1a);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Theme: Minimal */
+.random-text-box.minimal {
+  background-color: transparent;
+  padding: 0;
+}
+
+.minimal .character {
+  background-color: transparent;
+  color: var(--text-minimal, #666);
+  border: 1px solid var(--border-minimal, #ddd);
+}
+
+/* Theme: Matrix */
+.random-text-box.matrix {
+  background-color: var(--matrix-bg, #000);
+}
+
+.matrix .character {
+  background-color: transparent;
+  color: var(--matrix-text, #00ff00);
+  text-shadow: 0 0 8px var(--matrix-glow, #00ff00);
+  font-family: 'Courier New', monospace;
+} 

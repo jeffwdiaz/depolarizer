@@ -11,6 +11,7 @@
   import FillerImageBlock from '../components/FillerImageBlock.svelte';
   import About from '../components/About.svelte';
   import SplashOverlay from '../components/SplashOverlay.svelte';
+  import { RandomTextBox } from '../components';
   // Import your modules here
 </script>
 
@@ -26,14 +27,15 @@
       <NavMenu />
     </div>
     
-    <FillerImageBlock />
+    <div class="module">
+      <RandomTextBox 
+        paragraphs={3}
+        minWordsPerSentence={3}
+        maxWordsPerSentence={8}
+        refreshInterval={4000}
+      />
+    </div>
 
-    <FillerTextBlock />
-    <FillerTextBlock />
-    <FillerTextBlock />
-    <FillerTextBlock />
-    <FillerTextBlock />
-  
   </div>
   
   <!-- Main Column -->
@@ -51,10 +53,6 @@
     <div class="module url-input-module">
       <UrlInput />
     </div>
-    <FillerTextBlock />
-    <FillerTextBlock />
-    <FillerTextBlock />
-    <FillerTextBlock />
-    <FillerTextBlock />
+
   </div>
 </div>

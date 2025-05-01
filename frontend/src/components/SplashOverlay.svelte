@@ -7,15 +7,32 @@
 
   // Letters to use in the grid
   const letters = ['d', 'e', 'c', 'o', 'n', 's', 't', 'r', 'u'];
+  
+  // Static word in the middle
+  const staticWord = 'deconstructed';
+  
   type Cell = {
     row: number;
     col: number;
     letter: string;
     revealed: boolean;
+    isStatic: boolean;
   };
   let cells: Cell[] = [];
   let cols = 0;
   let rows = 0;
+
+  function isMiddleCell(row: number, col: number): boolean {
+    const middleRow = Math.floor(rows / 2);
+    const startCol = Math.floor((cols - 13) / 2);
+    return row === middleRow && col >= startCol && col < startCol + 13;
+  }
+
+  function getStaticLetter(col: number): string {
+    const startCol = Math.floor((cols - 13) / 2);
+    const letterIndex = col - startCol;
+    return staticWord[letterIndex] || '';
+  }
 
   function handleClick() {
     visible = false;
@@ -31,16 +48,18 @@
   }
 
   function generateCells() {
-    cols = Math.ceil(window.innerWidth / 100);
-    rows = Math.ceil(window.innerHeight / 100);
+    cols = Math.ceil(window.innerWidth / 50);
+    rows = Math.ceil(window.innerHeight / 50);
     cells = [];
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
+        const isStatic = isMiddleCell(r, c);
         cells.push({
           row: r,
           col: c,
-          letter: letters[Math.floor(Math.random() * letters.length)],
-          revealed: false
+          letter: isStatic ? getStaticLetter(c) : letters[Math.floor(Math.random() * letters.length)],
+          revealed: false,
+          isStatic
         });
       }
     }
@@ -53,12 +72,15 @@
   }
 
   async function revealCellsStaggered() {
-    const shuffled = shuffle([...cells]);
+    const shuffled = shuffle([...cells]); // Include all cells in the animation
     for (const cell of shuffled) {
-      cell.revealed = true;
-      cells = cells; // Trigger Svelte reactivity
-      await tick();
-      await new Promise(res => setTimeout(res, 40));
+      const originalCell = cells.find(c => c.row === cell.row && c.col === cell.col);
+      if (originalCell) {
+        originalCell.revealed = true;
+        cells = cells; // Trigger Svelte reactivity
+        await tick();
+        await new Promise(res => setTimeout(res, 40));
+      }
     }
   }
 
@@ -95,6 +117,7 @@
                 {@const cell = cells.find(cell => cell.row === rowIdx && cell.col === colIdx)}
                 <span
                   class="grid-letter"
+                  class:static={cell?.isStatic && cell?.revealed}
                   style="opacity: {cell && cell.revealed ? 1 : 0}; transition: opacity 0.8s;"
                   transition:fade|local={{ duration: 800 }}
                 >
@@ -106,7 +129,7 @@
         </div>
       {/key}
     {/if}
-    <span class="splash-title">de · con · struct · ed</span>
+    <span class="splash-title"></span>
   </button>
 {/if}
 
@@ -146,12 +169,12 @@
   display: flex;
 }
 .grid-letter {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #fff;
   opacity: 1;
   user-select: none;
@@ -164,5 +187,10 @@
   letter-spacing: 0.1em;
   user-select: none;
   z-index: 1;
+}
+.grid-letter.static {
+  color: var(--accent, #fd3232);
+  font-weight: bold;
+  opacity: 1 !important;
 }
 </style> 
