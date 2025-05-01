@@ -1,5 +1,17 @@
 # Changelog
 
+## 2025-04-30 - Wednesday
+### Changed
+- Modified splash grid animation:
+  - Reduced grid cell size from 100x100 to 50x50 pixels
+  - Adjusted font size to 2rem for better readability in smaller cells
+  - Improved animation consistency between static and dynamic letters
+  - Removed redundant splash title text
+  - Static "deconstructed" text now animates in with the grid
+### Fixed
+- Removed cached .svelte-kit directory from git tracking
+- Added .svelte-kit to .gitignore for better version control
+
 ## 2025-04-29 - Tuesday
 ### Added
 - FastAPI backend now supports LLM-powered analysis of articles.

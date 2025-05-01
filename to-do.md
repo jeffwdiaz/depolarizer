@@ -2,6 +2,8 @@
 
 ## Tomorrow
 - [ ] web scraper
+- [ ] Add hover effects to grid letters
+- [ ] Consider adding color transitions for static letters
 
 ## Project Setup
 
