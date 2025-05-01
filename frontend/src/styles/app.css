@@ -2,38 +2,13 @@
 @import './colors.css';
 
 /* =============================== */
-/* Theme Variables                 */
-/* =============================== */
-:root {
-    
-
-    --main-bg: var(--secondary);
-    --main-text: var(--color-primary);
-    
-    --sidebar-bg: var(--secondary);
-    --sidebar-text: var(--color-primary);
-    --sidebar-selected: var(--accent);
-    
-    --module-bg: #ffffff;
-    --module-border: #e0e0e0;
-    
-    --nav-menu-hover: rgba(253, 50, 50, 0.1);
-    
-    
-
-    /* Header */
-    --header-height: 150px;
-}
-
-
-/* =============================== */
 /* Base Styles                     */
 /* =============================== */
 body, html {
     margin: 0;
     padding: 0;
-    background: var(--main-bg);
-    color: var(--main-text);
+    background: var(--color-background);
+    color: var(--color-text);
     font-family: var(--font-lexend);
     height: 100%;
     font-size: 16px;  /* Base font size for the entire document */
@@ -82,8 +57,8 @@ body, html {
 /* Header Styles                   */
 /* =============================== */
 .header-area {
-    background: var(--main-text);
-    color: var(--main-bg);
+    background: var(--color-text);
+    color: var(--color-background);
     grid-area: header;
     width: 100%;
     height: var(--header-height);
@@ -110,52 +85,6 @@ body, html {
     margin: 0;
     position: absolute;
     bottom: 0;
-}
-
-/* =============================== */
-/* Left Sidebar Styles             */
-/* =============================== */
-.left-sidebar {
-    grid-area: sidebar;
-    background: var(--accent);
-    color: var(--sidebar-text);
-    min-width: 180px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 0;
-    margin: 0;
-}
-
-.left-sidebar nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-.left-sidebar nav ul li {
-    padding: 0;
-    cursor: pointer;
-    color: var(--sidebar-text);
-    transition: background 0.2s, color 0.2s;
-    margin: 0;
-}
-
-.left-sidebar nav ul li.selected {
-    background: var(--sidebar-selected);
-    color: var(--main-bg);
-    font-weight: bold;
-}
-
-.left-sidebar nav ul li:hover,
-.left-sidebar nav ul li:focus {
-    background: rgba(255,255,255,0.07);
-    outline: none;
 }
 
 /* =============================== */
@@ -211,7 +140,7 @@ body, html {
 }
 
 .polarizing-language {
-    color: var(--polarizing);
+    color: var(--color-highlight);
     font-weight: normal;
 }
 
@@ -220,7 +149,7 @@ body, html {
 /* =============================== */
 .about-info {
     grid-area: about;
-    background: var(--accent);
+    background: var(--color-highlight);
     color: #666;
     padding: 0;
     font-size: 1rem;
@@ -246,7 +175,7 @@ body, html {
 }
 
 .url-input:focus {
-    border: 1.5px solid var(--accent);
+    border: 1.5px solid var(--color-highlight);
     outline: none;
 }
 
@@ -277,8 +206,7 @@ body, html {
 /* Module Styles                   */
 /* =============================== */
 .module {
-    background: var(--module-bg);
-    border: 5px solid var(--main-text);
+    border: 5px solid var(--color-text);
     padding: 10px;
 }
 
@@ -326,8 +254,8 @@ body, html {
 }
 
 .nav-menu-list li.selected {
-    background-color: var(--accent);
-    color: var(--main-bg);
+    background-color: var(--color-highlight);
+    color: var(--color-background);
     font-weight: 500;
 }
 
@@ -345,151 +273,7 @@ body, html {
 /* =============================== */
 
 .filler-text-block {
-  background-color: var(--color-primary);
-}
-
-.line {
-    height: 0.8em;
-    background-color: var(--secondary);
-    margin-bottom: 0.5em;
-    border-radius: 2px;
-}
-
-.line:last-child {
-  margin-bottom: 0;
-}
-
-/* =============================== */
-/* Paragraph Styles                */
-/* =============================== */
-
-.paragraph {
-  margin-bottom: 1em;
-}
-
-.paragraph:last-child {
-  margin-bottom: 0;
-}
-
-/* =============================== */
-/* Splash Page Styles              */
-/* =============================== */
-
-/* =============================== */
-/* Navigation Menu Styles          */
-/* =============================== */
-.nav-menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-.nav-menu-list li {
-    padding: 12px 16px;
-    cursor: pointer;
-}
-
-.nav-menu-list li:hover {
-    background-color: var(--nav-menu-hover);
-}
-
-.nav-menu-list li.selected {
-    background-color: var(--accent);
-    color: var(--main-bg);
-    font-weight: 500;
-}
-
-/* =============================== */
-/* Filler Image Block Styles       */
-/* =============================== */
-.filler-image-block {
-  color: #ffffff;
-  padding: 10px !important;
-  overflow: hidden;
-}
-
-/* =============================== */
-/* Filler Text Block Styles        */
-/* =============================== */
-
-.filler-text-block {
-  background-color: var(--color-primary);
-}
-
-.line {
-    height: 0.8em;
-    background-color: var(--secondary);
-    margin-bottom: 0.5em;
-    border-radius: 2px;
-}
-
-.line:last-child {
-  margin-bottom: 0;
-}
-
-/* =============================== */
-/* Paragraph Styles                */
-/* =============================== */
-
-.paragraph {
-  margin-bottom: 1em;
-}
-
-.paragraph:last-child {
-  margin-bottom: 0;
-}
-
-/* =============================== */
-/* Splash Page Styles              */
-/* =============================== */
-
-/* =============================== */
-/* Navigation Menu Styles          */
-/* =============================== */
-.nav-menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-.nav-menu-list li {
-    padding: 12px 16px;
-    cursor: pointer;
-}
-
-.nav-menu-list li:hover {
-    background-color: var(--nav-menu-hover);
-}
-
-.nav-menu-list li.selected {
-    background-color: var(--accent);
-    color: var(--main-bg);
-    font-weight: 500;
-}
-
-/* =============================== */
-/* Filler Image Block Styles       */
-/* =============================== */
-.filler-image-block {
-  color: #ffffff;
-  padding: 10px !important;
-  overflow: hidden;
-}
-
-/* =============================== */
-/* Filler Text Block Styles        */
-/* =============================== */
-
-.filler-text-block {
-  background-color: var(--color-primary);
+  background-color: var(--color-text);
 }
 
 .line {

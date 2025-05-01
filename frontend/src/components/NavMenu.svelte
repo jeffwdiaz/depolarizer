@@ -37,9 +37,9 @@
           class:selected={item.selected}
           onmouseenter={() => hoveredIndex = i}
           onmouseleave={() => hoveredIndex = null}
-          style:background-color={hoveredIndex === i && !item.selected ? 'var(--nav-menu-hover)' : 
-                                item.selected ? 'var(--accent)' : 'transparent'}
-          style:color={item.selected ? 'var(--main-bg)' : 'var(--main-text)'}
+          style:background-color={hoveredIndex === i && !item.selected ? 'var(--color-highlight)' : 
+                                item.selected ? 'var(--color-highlight)' : 'transparent'}
+          style:color={item.selected ? 'var(--color-background)' : 'var(--color-text)'}
         >
           {item.name}
         </li>
@@ -65,12 +65,12 @@
 }
 
 .nav-menu-list li:hover {
-  background-color: var(--nav-menu-hover);
+  background-color: var(--color-highlight);
 }
 
 .nav-menu-list li.selected {
-  background-color: var(--accent);
-  color: var(--main-bg);
+  background-color: var(--color-highlight);
+  color: var(--color-background);
   font-weight: 500;
 }
 </style> 

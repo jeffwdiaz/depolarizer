@@ -30,6 +30,13 @@
     - Added smooth opacity transition on mount.
     - Ensured proper `grid-area: header;` is set.
   - Updated `frontend/src/routes/+layout.svelte` grid definition for clarity.
+- Refactored CSS variable usage:
+  - Replaced instances of `--main-bg` with `--color-background`.
+  - Replaced instances of `--main-text` with `--color-text`.
+  - Replaced instances of `--accent` with `--color-highlight`.
+  - Replaced instances of `--polarizing` with `--color-highlight`.
+  - Replaced instances of `--text-secondary` with `--color-text`.
+  - Replaced instances of `--primary` / `--color-primary` with `--color-text`.
 
 ### Fixed
 - Corrected props syntax in `Header.svelte` (removed `$props()` and `$state()`).
@@ -39,6 +46,9 @@
 ### Removed
 - Unused `frontend/src/components/RandomTextBox.css` file.
 - Redundant styles from `app.css` (styles now scoped within components).
+- Duplicated CSS rule blocks in `frontend/src/styles/app.css`.
+- Unused `--module-bg`, `--sidebar-text`, `--sidebar-selected` CSS variables and associated rules from `frontend/src/styles/app.css` (due to user edits).
+- Unused `.left-sidebar` CSS rules from `frontend/src/styles/app.css`.
 
 ## 2025-04-30 - Wednesday
 ### Changed
