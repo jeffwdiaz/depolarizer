@@ -1,9 +1,9 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { onMount, tick } from 'svelte';
-  let visible = true;
-  let mounted = false;
-  let gridKey = 0;
+  let visible = $state(true);
+  let mounted = $state(false);
+  let gridKey = $state(0);
 
   // Letters to use in the grid
   const letters = ['d', 'e', 'c', 'o', 'n', 's', 't', 'r', 'u'];
@@ -18,23 +18,23 @@
     revealed: boolean;
     isStatic: boolean;
   };
-  let cells: Cell[] = [];
-  let cols = 0;
-  let rows = 0;
+  let cells = $state<Cell[]>([]);
+  let cols = $state(0);
+  let rows = $state(0);
 
   function isMiddleCell(row: number, col: number): boolean {
     const middleRow = Math.floor(rows / 2);
-    const startCol = Math.floor((cols - 13) / 2);
-    return row === middleRow && col >= startCol && col < startCol + 13;
+    const startCol = Math.floor((cols - staticWord.length) / 2);
+    return row === middleRow && col >= startCol && col < startCol + staticWord.length;
   }
 
   function getStaticLetter(col: number): string {
-    const startCol = Math.floor((cols - 13) / 2);
+    const startCol = Math.floor((cols - staticWord.length) / 2);
     const letterIndex = col - startCol;
     return staticWord[letterIndex] || '';
   }
 
-  function handleClick() {
+  function handleStaticLetterClick() {
     visible = false;
   }
 
@@ -50,11 +50,11 @@
   function generateCells() {
     cols = Math.ceil(window.innerWidth / 50);
     rows = Math.ceil(window.innerHeight / 50);
-    cells = [];
+    const newCells: Cell[] = [];
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const isStatic = isMiddleCell(r, c);
-        cells.push({
+        newCells.push({
           row: r,
           col: c,
           letter: isStatic ? getStaticLetter(c) : letters[Math.floor(Math.random() * letters.length)],
@@ -63,24 +63,20 @@
         });
       }
     }
+    cells = newCells;
   }
 
   function resetRevealedCells() {
-    for (const cell of cells) {
-      cell.revealed = false;
-    }
+    cells.forEach(cell => cell.revealed = false);
+    cells = cells;
   }
 
   async function revealCellsStaggered() {
-    const shuffled = shuffle([...cells]); // Include all cells in the animation
-    for (const cell of shuffled) {
-      const originalCell = cells.find(c => c.row === cell.row && c.col === cell.col);
-      if (originalCell) {
-        originalCell.revealed = true;
-        cells = cells; // Trigger Svelte reactivity
-        await tick();
-        await new Promise(res => setTimeout(res, 40));
-      }
+    const shuffledIndices = shuffle(cells.map((_, index) => index));
+    for (const index of shuffledIndices) {
+      cells[index].revealed = true;
+      cells = cells;
+      await new Promise(res => setTimeout(res, 40));
     }
   }
 
@@ -96,7 +92,7 @@
         mounted = true;
         await tick();
         revealCellsStaggered();
-      }, 1000);
+      }, 500);
     };
 
     updateGrid();
@@ -107,30 +103,36 @@
 </script>
 
 {#if visible}
-  <button type="button" class="splash-overlay" on:click={handleClick} transition:fade={{ duration: 600 }}>
+  <div class="splash-overlay" transition:fade={{ duration: 600 }}>
     {#if mounted}
       {#key gridKey}
         <div class="letter-grid" aria-hidden="true">
           {#each Array(rows) as _, rowIdx}
             <div class="grid-row">
               {#each Array(cols) as _, colIdx}
-                {@const cell = cells.find(cell => cell.row === rowIdx && cell.col === colIdx)}
-                <span
-                  class="grid-letter"
-                  class:static={cell?.isStatic && cell?.revealed}
-                  style="opacity: {cell && cell.revealed ? 1 : 0}; transition: opacity 0.8s;"
-                  transition:fade|local={{ duration: 800 }}
-                >
-                  {cell ? cell.letter : ''}
-                </span>
+                {@const cellIndex = cells.findIndex(cell => cell.row === rowIdx && cell.col === colIdx)}
+                {#if cellIndex !== -1}
+                  {@const cell = cells[cellIndex]}
+                  <span
+                    class="grid-letter"
+                    class:static={cell.isStatic && cell.revealed}
+                    style="opacity: {cell.revealed ? 1 : 0}; transition: opacity 0.8s;"
+                    transition:fade|local={{ duration: 800 }}
+                    role={cell.isStatic ? "button" : undefined}
+                    tabindex={cell.isStatic ? 0 : -1}
+                    on:click={cell.isStatic ? handleStaticLetterClick : undefined}
+                    on:keydown={(e) => { if (cell.isStatic && (e.key === 'Enter' || e.key === ' ')) handleStaticLetterClick() }}
+                  >
+                    {cell.letter}
+                  </span>
+                {/if}
               {/each}
             </div>
           {/each}
         </div>
       {/key}
     {/if}
-    <span class="splash-title"></span>
-  </button>
+  </div>
 {/if}
 
 <style>
@@ -145,7 +147,6 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  cursor: pointer;
   overflow: hidden;
   border: none;
   padding: 0;
@@ -179,6 +180,9 @@
   opacity: 1;
   user-select: none;
   font-family: var(--font-serif, serif);
+  pointer-events: auto;
+  transition: opacity 0.8s, transform 0.2s ease;
+  outline: none;
 }
 .splash-title {
   color: #fff;
@@ -192,5 +196,6 @@
   color: var(--accent, #fd3232);
   font-weight: bold;
   opacity: 1 !important;
+  cursor: pointer;
 }
 </style> 

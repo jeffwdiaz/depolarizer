@@ -63,6 +63,7 @@
 
 - [x] Design and implement basic UI
 - [x] Implement animated splash overlay with randomized grid reveal and Garamond font
+- [x] Implement interactive splash overlay requiring click on static letters
 - [ ] Create news category selection
 - [ ] Implement results display
 - [ ] Add source attribution display

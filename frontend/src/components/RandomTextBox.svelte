@@ -4,14 +4,13 @@
 <!-- =============================== -->
 
 <script lang="ts">
-  // Optional props with default values
-  const { 
-    minWordsPerSentence = 4,
-    maxWordsPerSentence = 12,
-    minSentencesPerParagraph = 2,
-    maxSentencesPerParagraph = 5,
-    paragraphs = 2
-  } = $props();
+  // Props with default values
+  export let minWordsPerSentence = 4;
+  export let maxWordsPerSentence = 12;
+  export let minSentencesPerParagraph = 2;
+  export let maxSentencesPerParagraph = 5;
+  export let paragraphs = 2;
+  export let refreshInterval: number | undefined = undefined;
   
   const letters = 'abcdefghijklmnopqrstuvwxyz';
   
@@ -58,10 +57,17 @@
     return Array(paragraphs).fill(0).map(() => generateParagraph());
   }
 
-  const text = generateText();
+  let text = generateText();
+
+  // Set up refresh interval if specified
+  if (refreshInterval) {
+    setInterval(() => {
+      text = generateText();
+    }, refreshInterval);
+  }
 </script>
 
-<div>
+<div class="module random-text">
   {#each text as paragraph}
     <p>
       {paragraph}
@@ -70,9 +76,15 @@
 </div>
 
 <style>
+  .random-text {
+    font-family: var(--font-serif);
+  }
+  
   p {
     margin: 0 0 1em 0;
+    line-height: 1.5;
   }
+  
   p:last-child {
     margin-bottom: 0;
   }
