@@ -6,6 +6,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { headerTitle, headerUnderline, headerFadeOut } from './animations';
+  import { fly } from 'svelte/transition';
   
   export let title = 'de · con · struct · ed';
   let visible = false;
@@ -25,7 +26,7 @@
 </script>
 
 {#if visible}
-  <header class="site-header" class:mounted>
+  <header class="site-header" class:mounted in:fly={{ y: -50, duration: 600, delay: 100 }}>
     <h1 in:headerTitle out:headerFadeOut>
       {title}
     </h1>
@@ -41,7 +42,6 @@
     height: 150px; /* Use fixed height */
     position: relative;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
   }
 
   .site-header.mounted {

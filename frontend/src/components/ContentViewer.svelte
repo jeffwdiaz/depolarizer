@@ -5,9 +5,10 @@
 <!-- =============================== -->
 <script lang="ts">
   import UrlInput from './UrlInput.svelte';
+  import { fly } from 'svelte/transition';
 </script>
 
-<div class="module content-viewer">
+<div class="module content-viewer" in:fly={{ y: -500, duration: 1000, delay: 500 }}>
   <article>
     <h2>Comer Refers Cuomo to DOJ for Criminal Prosecution</h2>
     
