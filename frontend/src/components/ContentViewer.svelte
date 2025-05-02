@@ -48,9 +48,9 @@
 
   h2 {
     font-size: 1.5rem;
-    text-align: center;
+    text-align: left;
     margin: 0 0 1rem 0;
-    padding: 30px;
+    padding: 20px 0 20px 0;
     line-height: 1.2;
     background-color: var(--color-light);
     color: var(--color-dark);

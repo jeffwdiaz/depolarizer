@@ -1,6 +1,22 @@
 # Changelog
 
 ## 2025-05-02 - Friday
+### Changed
+- **RandomTextBox.svelte**:
+  - Complete overhaul: Replaced paragraph generation with a dynamic grid of randomly appearing letters.
+  - Implemented dynamic grid sizing based on container dimensions.
+  - Added character fade-in using CSS transitions triggered by JavaScript `setTimeout` with randomized delay.
+  - Added individual character fade-out after a configurable `holdDuration`.
+  - Modified update logic to only fill empty cells, preventing overwrites.
+  - Adjusted styling for fixed cell size (e.g., 20x20), fonts (serif), and colors (using CSS variables).
+- **LoadingDots.svelte**:
+  - Added a rotating square element with CSS transition.
+  - Removed original dot animation, text, associated logic, and styles.
+  - Added absolute positioning to center the component on the screen.
+- **+layout.svelte**:
+  - Added four `RandomTextBox` components (two in left column, two in right), appearing conditionally during `phase2_components`.
+  - Reordered `UrlInput.svelte` and `UrlInfo.svelte` in the right column, placing input above info.
+
 ### Added
 - `LoadingDots.svelte` component for visual feedback during loading.
 - `UrlInfo.svelte` component to display static instructions for URL input.

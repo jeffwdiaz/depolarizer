@@ -14,7 +14,7 @@
   <br>
   <h1>How does it work?</h1>
   <p>
-    Deconstructed uses advanced natural language processing to analyze news articles and extract the facts, without the emotional language.
+    Deconstructed uses advanced natural language processing to analyze news articles and highlight polarizing language to help you understand how language can be used to divide us.
   </p>
 </div>
 
