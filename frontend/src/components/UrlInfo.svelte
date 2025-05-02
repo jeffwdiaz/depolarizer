@@ -29,7 +29,8 @@
 
   h2 {
     margin-top: 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-weight: 400;
   }
 
   p {

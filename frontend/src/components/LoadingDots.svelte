@@ -7,67 +7,53 @@
   import { onMount, onDestroy } from 'svelte';
   import { fade } from 'svelte/transition'; // Import fade
 
-  let visibleDots = 1;
-  let intervalId: ReturnType<typeof setInterval>;
+  let rotationAngle = 45; // State for rotation angle, start at 90 degrees
+  let squareIntervalId: ReturnType<typeof setInterval>; // ID for the new interval
 
   onMount(() => {
-    // Cycle through 1 to 5 dots every 400ms
-    intervalId = setInterval(() => {
-      visibleDots = (visibleDots % 5) + 1; 
-    }, 400); 
+    // Rotate square every 500ms
+    squareIntervalId = setInterval(() => {
+      rotationAngle += 90; // Increment angle by 90
+    }, 1000);
 
     // Cleanup function
     return () => {
-      clearInterval(intervalId);
+      clearInterval(squareIntervalId); // Clear the new interval
     };
   });
 </script>
 
-<div class="loading-dots-container module-light">
-  <span class="loading-dots-text">
-    Analyzing URL
-    <br>
-  </span>
-  
-  <span class="dots">
-    {'.'.repeat(visibleDots)}
-  </span>
+<!-- Container for centering -->
+<div class="center-container module-light">
+  <!-- Rotating Square -->
+  <div 
+    class="rotating-square" 
+    style="transform: rotate({rotationAngle}deg);"
+  ></div>
 </div>
 
 <style>
   /* =============================== */
-  /* Component Styles              */
+  /* Rotating Square Styles          */
   /* =============================== */
-  
-  
-  .loading-dots-container {
-    font-family: var(--font-sans-serif);
-    text-align: center;
-    padding: 20px 10px;
-    padding-top: 150px;
-  }
-  
-  .loading-dots-text   {
-    font-family: var(--font-sans-serif);
-    font-size: 1.2rem;
-    font-weight: 400;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 10px;
-    margin: 0;
+  .rotating-square {
+    width: 50px; /* Size of the square */
+    height: 50px;
+    background-color: black; /* Color of the square */
+    margin: auto; /* Center within the container */
+    transition: transform 0.7s ease-in-out; /* Smooth rotation transition */
   }
 
-  .dots {
-    font-family: var(--font-serif);
-    font-size: 4rem;
-    line-height: .7;
-    letter-spacing: 0.2em;
-    font-weight: bold;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    margin: 0;
+  /* =============================== */
+  /* Centering Container Styles      */
+  /* =============================== */
+  .center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Ensure it doesn't stretch unexpectedly */
+    width: fit-content;
+    height: fit-content;
   }
 </style> 

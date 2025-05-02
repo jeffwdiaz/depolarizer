@@ -55,6 +55,10 @@
     }, 7000); // 7000 milliseconds = 7 seconds
   }
 
+
+
+  /*
+
   // --- TESTING ONLY: Auto-dismiss splash after 1 second --- 
   onMount(() => {
     // TODO: Remove this entire onMount block after testing
@@ -69,6 +73,12 @@
     };
   });
   // --- END TESTING ONLY --- 
+
+
+*/
+
+
+
 
 </script>
 
@@ -87,12 +97,13 @@
       </div>
       
       {#if phase2_components}
-        <div class="module module-dark" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
-          <RandomTextBox 
-            paragraphs={3}
-            minWordsPerSentence={3}
-            maxWordsPerSentence={8}
-          />
+        <!-- Left Column RandomTextBox -->
+        <div class="module module-dark" in:fly={{ x: -500, duration: 1000, delay: 700 }}> 
+          <RandomTextBox />
+        </div>
+        <!-- Second Left Column RandomTextBox -->
+        <div class="module module-dark" in:fly={{ x: -500, duration: 1000, delay: 800 }}> 
+          <RandomTextBox />
         </div>
       {/if}
     </div>
@@ -126,18 +137,25 @@
     </div>
     
     <div class="right-column">
-      <!-- Apply module-dark to UrlInfo wrapper -->
-      <div class="module url-info-module module-dark" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
-        <UrlInfo />
-      </div>
-
       <!-- Apply module-dark to the URL input wrapper -->
       <div class="module url-input-module module-dark" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
         <UrlInput on:urlSubmitted={loadOtherComponents} />
       </div>
 
+      <!-- Apply module-dark to UrlInfo wrapper -->
+      <div class="module url-info-module module-dark" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
+        <UrlInfo />
+      </div>
+
       {#if phase2_components}
-        <!-- Keep other components conditional if needed -->
+        <!-- Right Column RandomTextBox -->
+        <div class="module module-dark" in:fly={{ x: 500, duration: 1000, delay: 700 }}> 
+          <RandomTextBox />
+        </div>
+        <!-- Second Right Column RandomTextBox -->
+        <div class="module module-dark" in:fly={{ x: 500, duration: 1000, delay: 800 }}> 
+          <RandomTextBox />
+        </div>
       {/if}
     </div>
   </div>
