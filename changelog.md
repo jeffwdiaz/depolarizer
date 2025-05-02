@@ -27,12 +27,21 @@
 - **Transitions (`+layout.svelte`)**:
   - Added `out:fade` transition to `About.svelte` wrapper so it fades out when phase 2 components load.
   - Added `in:fade`/`out:fade` to `LoadingDots.svelte` wrapper.
+- **LoadingDots.svelte**:
+  - Implemented sequential dot animation using `setInterval`.
+  - Added descriptive text ("Analyzing URL").
+  - Removed `{#key}` block to prevent blinking during dot updates.
+  - Adjusted styling (padding, font, size).
+- **+layout.svelte**:
+  - Corrected conditional logic for `<About>` component to ensure it fades out when loading starts (`{#if !isLoadingPhase2 && !phase2_components}`).
+  - Removed unused `.module` class from `LoadingDots` wrapper.
 
 ### Fixed
 - Corrected usage of Svelte state (`$state`) in `+layout.svelte` and `NavMenu.svelte` to use standard `let` for reactivity, resolving linter errors.
 - Added missing component exports (`UrlInfo`, `LoadingDots`) to `frontend/src/components/index.ts` to resolve import errors.
 - Fixed `NavMenu.svelte` text color inheritance issue by adjusting inline styles and later refactoring to use CSS classes.
 - Typed the `event` parameter in `loadOtherComponents` in `+layout.svelte` to resolve TypeScript error.
+- Prevented blinking effect in `LoadingDots.svelte` by removing the `{#key}` block around the animated dots.
 
 ## 2025-05-01 - Thursday
 ### Added
