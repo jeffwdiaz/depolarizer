@@ -29,11 +29,6 @@
     <h1 in:headerTitle out:headerFadeOut>
       {title}
     </h1>
-    <div 
-      class="underline" 
-      in:headerUnderline
-      out:headerFadeOut
-    ></div>
   </header>
 {/if}
 

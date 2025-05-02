@@ -4,8 +4,8 @@
 <!-- =============================== -->
 
 <script lang="ts">
-  import { fade } from 'svelte/transition'; // Re-import fade
-  import { onMount } from 'svelte'; // Import onMount for interval cleanup
+  // REMOVED: import { fade } from 'svelte/transition';
+  // REMOVED: import { onMount, tick } from 'svelte';
 
   // Props with default values
   export let minWordsPerSentence = 4;
@@ -14,9 +14,7 @@
   export let maxSentencesPerParagraph = 5;
   export let paragraphs = 2;
   
-  // Animation Timing Configuration
-  const delayIncrement = 50; // ms delay between each character start (Increased)
-  const fadeDuration = 50;   // ms duration for each character fade (Matched to increment)
+  // REMOVED: Animation Timing Configuration constants
 
   const letters = 'abcdefghijklmnopqrstuvwxyz';
   
@@ -63,50 +61,17 @@
     return Array(paragraphs).fill(0).map(() => generateParagraph());
   }
 
-  // Holds the raw generated paragraphs
-  let rawText: string[] = [];
+  // Generate text directly
+  let text = generateText();
 
-  // Holds characters with their delays for rendering
-  type CharInfo = { char: string; delay: number }; // Use delay again
-  type ParagraphInfo = CharInfo[];
-  let displayedText: ParagraphInfo[] = [];
+  // REMOVED: onMount block
 
-  // Function to update text and calculate delays
-  function updateText() {
-    rawText = generateText();
-    let charIndex = 0;
-    // Removed timing config from here
-
-    displayedText = rawText.map(paragraph => {
-      const paragraphChars: CharInfo[] = [];
-      for (const char of paragraph) {
-        // Calculate the start delay for this character
-        paragraphChars.push({ char, delay: charIndex * delayIncrement });
-        charIndex++;
-      }
-      // Optional: add gap between paragraph animations
-      // charIndex += Math.round(50 / delayIncrement); // Add gap equivalent to ~50ms
-      return paragraphChars;
-    });
-  }
-
-  // Initial generation
-  updateText();
-
-  // Set up refresh interval if specified and clean up on destroy
-  onMount(() => {
-    // Cleanup function
-    return () => {
-    };
-  });
 </script>
 
 <div class="module random-text">
-  {#each displayedText as paragraphData, pIndex}
+  {#each text as paragraph}
     <p>
-      {#each paragraphData as { char, delay }, cIndex (pIndex + '-' + cIndex)}
-        <span transition:fade={{ delay, duration: fadeDuration }}>{char}</span>
-      {/each}
+      {paragraph} <!-- Render paragraph directly -->
     </p>
   {/each}
 </div>

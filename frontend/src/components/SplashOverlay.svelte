@@ -1,9 +1,9 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import { onMount, tick } from 'svelte';
-  let visible = $state(true);
+  import { onMount, tick, createEventDispatcher } from 'svelte';
   let mounted = $state(false);
   let gridKey = $state(0);
+  const dispatch = createEventDispatcher();
 
   // Letters to use in the grid
   const letters = ['d', 'e', 'c', 'o', 'n', 's', 't', 'r', 'u'];
@@ -35,7 +35,7 @@
   }
 
   function handleStaticLetterClick() {
-    visible = false;
+    dispatch('dismiss');
   }
 
   function shuffle<T>(array: T[]): T[] {
@@ -102,38 +102,36 @@
   });
 </script>
 
-{#if visible}
-  <div class="splash-overlay" transition:fade={{ duration: 600 }}>
-    {#if mounted}
-      {#key gridKey}
-        <div class="letter-grid" aria-hidden="true">
-          {#each Array(rows) as _, rowIdx}
-            <div class="grid-row">
-              {#each Array(cols) as _, colIdx}
-                {@const cellIndex = cells.findIndex(cell => cell.row === rowIdx && cell.col === colIdx)}
-                {#if cellIndex !== -1}
-                  {@const cell = cells[cellIndex]}
-                  <span
-                    class="grid-letter"
-                    class:static={cell.isStatic && cell.revealed}
-                    style="opacity: {cell.revealed ? 1 : 0}; transition: opacity 0.8s;"
-                    transition:fade|local={{ duration: 800 }}
-                    role={cell.isStatic ? "button" : undefined}
-                    tabindex={cell.isStatic ? 0 : -1}
-                    on:click={cell.isStatic ? handleStaticLetterClick : undefined}
-                    on:keydown={(e) => { if (cell.isStatic && (e.key === 'Enter' || e.key === ' ')) handleStaticLetterClick() }}
-                  >
-                    {cell.letter}
-                  </span>
-                {/if}
-              {/each}
-            </div>
-          {/each}
-        </div>
-      {/key}
-    {/if}
-  </div>
-{/if}
+<div class="splash-overlay" transition:fade={{ duration: 600 }}>
+  {#if mounted}
+    {#key gridKey}
+      <div class="letter-grid" aria-hidden="true">
+        {#each Array(rows) as _, rowIdx}
+          <div class="grid-row">
+            {#each Array(cols) as _, colIdx}
+              {@const cellIndex = cells.findIndex(cell => cell.row === rowIdx && cell.col === colIdx)}
+              {#if cellIndex !== -1}
+                {@const cell = cells[cellIndex]}
+                <span
+                  class="grid-letter"
+                  class:static={cell.isStatic && cell.revealed}
+                  style="opacity: {cell.revealed ? 1 : 0}; transition: opacity 0.8s;"
+                  transition:fade|local={{ duration: 800 }}
+                  role={cell.isStatic ? "button" : undefined}
+                  tabindex={cell.isStatic ? 0 : -1}
+                  on:click={cell.isStatic ? handleStaticLetterClick : undefined}
+                  on:keydown={(e) => { if (cell.isStatic && (e.key === 'Enter' || e.key === ' ')) handleStaticLetterClick() }}
+                >
+                  {cell.letter}
+                </span>
+              {/if}
+            {/each}
+          </div>
+        {/each}
+      </div>
+    {/key}
+  {/if}
+</div>
 
 <style>
 .splash-overlay {
