@@ -3,9 +3,20 @@
 <!-- =============================== -->
  
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   export let placeholder: string = "Paste article URL here to depolarize";
   export let value: string = "";
-  export let onInput: (event: Event) => void = () => {};
+
+  const dispatch = createEventDispatcher();
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      console.log('Enter pressed in UrlInput, dispatching urlSubmitted');
+      dispatch('urlSubmitted', { url: value });
+    }
+  }
 </script>
 
 <section class="url-input-section">
@@ -14,7 +25,7 @@
     class="url-input"
     {placeholder}
     bind:value
-    on:input={onInput}
+    on:keydown={handleKeydown}
   />
 </section>
 

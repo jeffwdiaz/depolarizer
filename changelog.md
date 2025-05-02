@@ -1,5 +1,39 @@
 # Changelog
 
+## 2025-05-02 - Friday
+### Added
+- `LoadingDots.svelte` component for visual feedback during loading.
+- `UrlInfo.svelte` component to display static instructions for URL input.
+- `.module-dark` and `.module-light` CSS classes to `app.css` for themeable modules.
+- Loading state logic (`isLoadingPhase2`) to `+layout.svelte` with a 5-second delay before showing phase 2 components.
+
+### Changed
+- **Component Loading Logic (`+layout.svelte`)**:
+  - Refactored component loading into two phases controlled by `phase1_components` and `phase2_components` state variables.
+  - Phase 1 (Header, NavMenu, UrlInput, About, UrlInfo) loads immediately after splash screen dismissal.
+  - Phase 2 (ContentViewer, RandomTextBox) loads after Enter is pressed in `UrlInput` and a 5-second loading state (showing `LoadingDots`).
+- **Component Styling & Placement (`+layout.svelte`, `NavMenu.svelte`, `app.css`)**:
+  - Applied `.module-dark` / `.module-light` classes to relevant module wrappers in `+layout.svelte`.
+  - Moved `About.svelte` component from right column to main column.
+  - Refactored `NavMenu.svelte` styling:
+    - Removed inline `style:` directives for color/background.
+    - Removed JavaScript-based hover state (`hoveredIndex`).
+    - Defined default, selected, and hover states using CSS classes and `:hover` pseudo-class in the `<style>` block.
+    - Corrected text color for non-selected items to inherit from `.module-dark` parent.
+  - Removed default background/color from base `.module` class in `app.css`.
+- **Component Content (`About.svelte`, `UrlInfo.svelte`)**:
+  - Added more detailed content sections (What, Why, How) to `About.svelte`.
+  - Updated `UrlInfo.svelte` to display static instructions instead of dynamic URL info.
+- **Transitions (`+layout.svelte`)**:
+  - Added `out:fade` transition to `About.svelte` wrapper so it fades out when phase 2 components load.
+  - Added `in:fade`/`out:fade` to `LoadingDots.svelte` wrapper.
+
+### Fixed
+- Corrected usage of Svelte state (`$state`) in `+layout.svelte` and `NavMenu.svelte` to use standard `let` for reactivity, resolving linter errors.
+- Added missing component exports (`UrlInfo`, `LoadingDots`) to `frontend/src/components/index.ts` to resolve import errors.
+- Fixed `NavMenu.svelte` text color inheritance issue by adjusting inline styles and later refactoring to use CSS classes.
+- Typed the `event` parameter in `loadOtherComponents` in `+layout.svelte` to resolve TypeScript error.
+
 ## 2025-05-01 - Thursday
 ### Added
 - Barrel file (`frontend/src/components/index.ts`) for centralized component exports.

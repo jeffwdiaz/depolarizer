@@ -12,14 +12,19 @@
     FillerTextBlock,
     FillerImageBlock,
     About,
-    SplashOverlay
+    SplashOverlay,
+    UrlInfo,
+    LoadingDots
   } from '../components';
   import type { LayoutData } from './$types';
-  import { onMount } from 'svelte'; // Import onMount
-  import { fly } from 'svelte/transition'; // Import fly
+  import { onMount } from 'svelte'; // Keep onMount
+  import { fly, fade } from 'svelte/transition'; // Import fly and fade
 
   let showSplash = true;     // Controls splash visibility
-  let showMainLayout = false; // Controls main layout visibility
+  let phase1_components = false; // Was: showHeaderNavUrl
+  let phase2_components = false; // Was: showOtherComponents
+  let isLoadingPhase2 = false; // Add loading state variable
+  
   let autoDismissTimer: ReturnType<typeof setTimeout> | undefined = undefined; // Timer ID
 
   function enterApp() {
@@ -27,15 +32,27 @@
     if (!showSplash) return; 
     if (autoDismissTimer) clearTimeout(autoDismissTimer);
 
-    console.log('Splash dismissed instantly.');
+    console.log('Splash dismissed.'); // Updated log
     showSplash = false; // Hide splash immediately
+    
+    // Show Phase 1 components
+    phase1_components = true; 
+    console.log('Showing Phase 1 components (Header, NavMenu, UrlInput, About).');
+  }
+  
+  // Updated function to handle loading state
+  function loadOtherComponents(event: CustomEvent<{ url: string }>) {
+    console.log('urlSubmitted event received in layout. URL:', event.detail.url);
+    console.log('Starting loading phase...');
+    isLoadingPhase2 = true; // Show loading indicator
+    phase2_components = false; // Ensure phase 2 isn't shown yet
 
-    // Wait 2 seconds before showing main layout
-    console.log('Starting 2s delay for main layout...');
+    // Wait 5 seconds
     setTimeout(() => {
-      showMainLayout = true; // Show main layout after delay
-      console.log('Delay finished, showing main layout.');
-    }, 2000);
+      console.log('Loading finished. Showing Phase 2 components.');
+      isLoadingPhase2 = false; // Hide loading indicator
+      phase2_components = true;  // Show actual phase 2 components
+    }, 5000); // 5000 milliseconds = 5 seconds
   }
 
   // --- TESTING ONLY: Auto-dismiss splash after 1 second --- 
@@ -60,43 +77,68 @@
   <SplashOverlay on:dismiss={enterApp} />
 {/if} <!-- End of splash conditional -->
 
-{#if showMainLayout}
-  <!-- Main application layout -->
+{#if phase1_components}
   <div class="grid-container">
     <Header />
     
-    <!-- Left Column -->
     <div class="left-column">
-      <div class="module nav-menu" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
+      <div class="module nav-menu module-dark" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
         <NavMenu />
       </div>
       
-      <div class="module" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
-        <RandomTextBox 
-          paragraphs={3}
-          minWordsPerSentence={3}
-          maxWordsPerSentence={8}
-        />
-      </div>
-
+      {#if phase2_components}
+        <div class="module module-dark" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
+          <RandomTextBox 
+            paragraphs={3}
+            minWordsPerSentence={3}
+            maxWordsPerSentence={8}
+          />
+        </div>
+      {/if}
     </div>
     
-    <!-- Main Column -->
     <div class="main-column">
-      <ContentViewer />
-      <slot /> <!-- This is where child routes will render -->
+      {#if !phase2_components}
+        <div class="module about-module module-light" 
+             in:fly={{ y: -500, duration: 1000, delay: 500 }}
+             out:fade={{ duration: 300 }}>  
+          <About />
+        </div>
+      {/if}
+      
+      <!-- Show LoadingDots when isLoadingPhase2 is true -->
+      {#if isLoadingPhase2}
+        <div class="module loading-module" 
+             in:fade={{ duration: 300 }}
+             out:fade={{ duration: 300 }}>
+          <LoadingDots />
+        </div>
+      {/if}
+
+      <!-- Show ContentViewer only when phase2 is active -->
+      {#if phase2_components}
+        <div class="module-light" 
+             in:fly={{ y: -500, duration: 1000, delay: 500 }}> 
+          <ContentViewer />
+        </div>
+      {/if}
+      <slot />
     </div>
     
-    <!-- Right Column -->
     <div class="right-column">
-      <div class="module about-module" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
-        <About />
+      <!-- Apply module-dark to UrlInfo wrapper -->
+      <div class="module url-info-module module-dark" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
+        <UrlInfo />
       </div>
 
-      <div class="module url-input-module" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
-        <UrlInput />
+      <!-- Apply module-dark to the URL input wrapper -->
+      <div class="module url-input-module module-dark" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
+        <UrlInput on:urlSubmitted={loadOtherComponents} />
       </div>
 
+      {#if phase2_components}
+        <!-- Keep other components conditional if needed -->
+      {/if}
     </div>
   </div>
 
