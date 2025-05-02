@@ -52,7 +52,7 @@
       console.log('Loading finished. Showing Phase 2 components.');
       isLoadingPhase2 = false; // Hide loading indicator
       phase2_components = true;  // Show actual phase 2 components
-    }, 5000); // 5000 milliseconds = 5 seconds
+    }, 7000); // 7000 milliseconds = 7 seconds
   }
 
   // --- TESTING ONLY: Auto-dismiss splash after 1 second --- 
@@ -98,7 +98,7 @@
     </div>
     
     <div class="main-column">
-      {#if !phase2_components}
+      {#if !isLoadingPhase2 && !phase2_components}
         <div class="module about-module module-light" 
              in:fly={{ y: -500, duration: 1000, delay: 500 }}
              out:fade={{ duration: 300 }}>  
@@ -108,7 +108,7 @@
       
       <!-- Show LoadingDots when isLoadingPhase2 is true -->
       {#if isLoadingPhase2}
-        <div class="module loading-module" 
+        <div class="loading-module" 
              in:fade={{ duration: 300 }}
              out:fade={{ duration: 300 }}>
           <LoadingDots />
