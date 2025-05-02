@@ -7,11 +7,11 @@
 body, html {
     margin: 0;
     padding: 0;
-    background: var(--color-background);
-    color: var(--color-text);
+    background: var(--color-light);
+    color: var(--color-dark);
     font-family: var(--font-lexend);
     height: 100%;
-    font-size: 20px;  /* Base font size for the entire document */
+    font-size: 18px;  /* Base font size for the entire document */
     line-height: 1.4;
 }
 
@@ -23,7 +23,7 @@ body, html {
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
         "header header header header header header header header header header header header"
-        "left left left main main main main main main right right right";
+        "left left left main main main main main main main right right right";
     padding: 10px;
     gap: 10px;
     margin: 0;
@@ -111,41 +111,6 @@ body, html {
 }
 
 /* =============================== */
-/* About Info Section              */
-/* =============================== */
-.about-info {
-    grid-area: about;
-    background: var(--color-highlight);
-    color: #666;
-    padding: 0;
-    font-size: 1rem;
-    margin: 0;
-}
-
-/* =============================== */
-/* Form Elements                   */
-/* =============================== */
-.url-input-section {
-    margin: 0;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.url-input {
-    width: 100%;
-    max-width: 420px;
-    padding: 0;
-    border: 1px solid #ccd6dd;
-    font-size: 1rem;
-    transition: border 0.2s;
-}
-
-.url-input:focus {
-    border: 1.5px solid var(--color-highlight);
-    outline: none;
-}
-
-/* =============================== */
 /* Utility Classes                 */
 /* =============================== */
 .text-center {
@@ -172,8 +137,16 @@ body, html {
 /* Module Styles                   */
 /* =============================== */
 .module {
-    border: 2px solid var(--color-text);
+    border: 5px solid var(--color-dark);
     padding: 10px;
+    background: var(--color-light);
+    color: var(--color-dark);
+}
+
+/* Specific module overrides */
+.url-input-module {
+  background-color: var(--color-dark);
+  color: var(--color-light);
 }
 
 /* Responsive Layout */
@@ -181,7 +154,7 @@ body, html {
     .grid-container {
         grid-template-areas:
             "header header header header header header header header header header header header"
-            "left left left left main main main main main main main main"
+            "left left left main main main main main main right right right"
             "right right right right right right right right right right right right";
     }
 }

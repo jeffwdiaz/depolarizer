@@ -16,6 +16,7 @@
   } from '../components';
   import type { LayoutData } from './$types';
   import { onMount } from 'svelte'; // Import onMount
+  import { fly } from 'svelte/transition'; // Import fly
 
   let showSplash = true;     // Controls splash visibility
   let showMainLayout = false; // Controls main layout visibility
@@ -43,7 +44,7 @@
     autoDismissTimer = setTimeout(() => {
       console.log('TESTING: Auto-dismissing splash after 1 second.'); // Added TESTING prefix
       enterApp();
-    }, 1000); // 1 second delay
+    }, 100); // 1 second delay
 
     // Cleanup the timer if the component unmounts before it fires
     return () => {
@@ -66,11 +67,11 @@
     
     <!-- Left Column -->
     <div class="left-column">
-      <div class="module nav-menu">
+      <div class="module nav-menu" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
         <NavMenu />
       </div>
       
-      <div class="module">
+      <div class="module" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
         <RandomTextBox 
           paragraphs={3}
           minWordsPerSentence={3}
@@ -82,17 +83,17 @@
     
     <!-- Main Column -->
     <div class="main-column">
-      <div class="module content-viewer">
-        <ContentViewer />
-        <slot /> <!-- This is where child routes will render -->
-      </div>
+      <ContentViewer />
+      <slot /> <!-- This is where child routes will render -->
     </div>
     
     <!-- Right Column -->
     <div class="right-column">
-      <About />
+      <div class="module about-module" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
+        <About />
+      </div>
 
-      <div class="module url-input-module">
+      <div class="module url-input-module" in:fly={{ x: 500, duration: 1000, delay: 500 }}>
         <UrlInput />
       </div>
 

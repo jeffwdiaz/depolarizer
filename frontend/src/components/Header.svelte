@@ -36,8 +36,8 @@
 <style>
   .site-header {
     grid-area: header;
-    background: var(--color-text);
-    color: var(--color-background);
+    background: var(--color-dark);
+    color: var(--color-light);
     width: 100%;
     height: 150px; /* Use fixed height */
     position: relative;
@@ -64,7 +64,7 @@
   .underline {
     width: 100%;
     height: 5px;
-    background: var(--color-background);  /* Changed to main-bg to be visible */
+    background: var(--color-light);  /* Changed to main-bg to be visible */
     margin: 0;
     position: absolute;
     bottom: 0;

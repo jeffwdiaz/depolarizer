@@ -118,7 +118,7 @@
 
 <style>
 .filler-text-block {
-  background-color: var(--color-text);
+  background-color: var(--color-dark);
 }
 
 .line {

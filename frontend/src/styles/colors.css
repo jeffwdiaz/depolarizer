@@ -3,9 +3,9 @@
 /* =============================== */
 
 :root {
-  --color-background: #ccc;
-  --color-text: #222;
-  --color-highlight: #fc2121;
+  --color-light: #ccc;
+  --color-dark: #222;
+  --color-highlight: #ac1111;
 }
 
 /* =============================== */

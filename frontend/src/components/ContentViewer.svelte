@@ -38,9 +38,6 @@
     </div>
   </article>
   
-  <div class="url-input-container">
-    <UrlInput />
-  </div>
 </div>
 
 <style>
@@ -56,7 +53,7 @@
 
   .article-meta {
     font-size: 0.9rem;
-    color: var(--color-text);
+    color: var(--color-dark);
     margin-bottom: 1.5rem;
   }
 
@@ -73,10 +70,18 @@
   }
 
   .polarizing-language {
+    display: inline-block;
     color: var(--color-highlight);
+    font-size: 1rem;
+    font-style: italic;
   }
 
   .url-input-container {
     margin-top: 2rem;
   }
+
+  /* Remove paragraph fade-in animation */
+  /* @keyframes fadeInParagraph { ... } */
+  /* .article-body p { ... } */
+  /* .article-body p:nth-child(...) { ... } */
 </style> 
