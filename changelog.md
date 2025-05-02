@@ -31,12 +31,12 @@
     - Ensured proper `grid-area: header;` is set.
   - Updated `frontend/src/routes/+layout.svelte` grid definition for clarity.
 - Refactored CSS variable usage:
-  - Replaced instances of `--main-bg` with `--color-background`.
-  - Replaced instances of `--main-text` with `--color-text`.
+  - Replaced instances of `--main-bg` with `--color-light`.
+  - Replaced instances of `--main-text` with `--color-dark`.
   - Replaced instances of `--accent` with `--color-highlight`.
   - Replaced instances of `--polarizing` with `--color-highlight`.
-  - Replaced instances of `--text-secondary` with `--color-text`.
-  - Replaced instances of `--primary` / `--color-primary` with `--color-text`.
+  - Replaced instances of `--text-secondary` with `--color-dark`.
+  - Replaced instances of `--primary` / `--color-primary` with `--color-dark`.
 
 ### Fixed
 - Corrected props syntax in `Header.svelte` (removed `$props()` and `$state()`).

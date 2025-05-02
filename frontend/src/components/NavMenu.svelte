@@ -4,7 +4,6 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { navMenuFade } from './animations';
   
   interface MenuItem {
     name: string;
@@ -31,15 +30,14 @@
 
 <nav>
   {#if menuItems.length}
-    <ul class="nav-menu-list" in:navMenuFade>
+    <ul class="nav-menu-list">
       {#each menuItems as item, i}
         <li 
           class:selected={item.selected}
           onmouseenter={() => hoveredIndex = i}
           onmouseleave={() => hoveredIndex = null}
-          style:background-color={hoveredIndex === i && !item.selected ? 'var(--color-highlight)' : 
-                                item.selected ? 'var(--color-highlight)' : 'transparent'}
-          style:color={item.selected ? 'var(--color-background)' : 'var(--color-text)'}
+          style:background-color={ item.selected ? 'var(--color-dark)' : hoveredIndex === i ? 'var(--color-highlight)' : 'transparent' }
+          style:color={item.selected ? 'var(--color-light)' : 'var(--color-dark)'}
         >
           {item.name}
         </li>
@@ -69,8 +67,8 @@
 }
 
 .nav-menu-list li.selected {
-  background-color: var(--color-highlight);
-  color: var(--color-background);
+  background-color: var(--color-dark);
+  color: var(--color-light);
   font-weight: 500;
 }
 </style> 

@@ -6,6 +6,7 @@
 <script lang="ts">
   // REMOVED: import { fade } from 'svelte/transition';
   // REMOVED: import { onMount, tick } from 'svelte';
+  // import { fly } from 'svelte/transition';
 
   // Props with default values
   export let minWordsPerSentence = 4;
