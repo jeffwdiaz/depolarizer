@@ -11,20 +11,17 @@
   }
   
   // Menu items with their states
-  const menuItems = $state<MenuItem[]>([]);
+  let menuItems: MenuItem[] = [];
   const initialItems: MenuItem[] = [
     { name: 'Fox', selected: false },
     { name: 'CNN', selected: false },
     { name: 'Reuters', selected: false },
-    { name: 'NPR', selected: true }
+    { name: 'NPR', selected: false }
   ];
-
-  // Hover state management
-  let hoveredIndex = $state<number | null>(null);
 
   onMount(() => {
     // Trigger animation by setting the items after mount
-    menuItems.push(...initialItems);
+    menuItems = [...initialItems];
   });
 </script>
 
@@ -34,10 +31,6 @@
       {#each menuItems as item, i}
         <li 
           class:selected={item.selected}
-          onmouseenter={() => hoveredIndex = i}
-          onmouseleave={() => hoveredIndex = null}
-          style:background-color={ item.selected ? 'var(--color-dark)' : hoveredIndex === i ? 'var(--color-highlight)' : 'transparent' }
-          style:color={item.selected ? 'var(--color-light)' : 'var(--color-dark)'}
         >
           {item.name}
         </li>
@@ -47,28 +40,43 @@
 </nav>
 
 <style>
-.nav-menu-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
+  .nav-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    text-decoration: line-through;
+  }
 
-.nav-menu-list li {
-  padding: 12px 16px;
-  cursor: pointer;
-}
+  .nav-menu-list li {
+    padding: 12px 16px;
+    cursor: pointer;
+    /* Default state (inherits from module-dark parent) */
+    color: var(--color-light);
+    background-color: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+    font-weight: normal; /* Default font weight */
+  }
 
-.nav-menu-list li:hover {
-  background-color: var(--color-highlight);
-}
+  /* Hover state */
+  .nav-menu-list li:hover {
+    background-color: var(--color-highlight);
+    /* Text color on hover remains light by default, which should be fine */
+  }
 
-.nav-menu-list li.selected {
-  background-color: var(--color-dark);
-  color: var(--color-light);
-  font-weight: 500;
-}
+  /* Selected state */
+  .nav-menu-list li.selected {
+    font-weight: 500;
+    color: var(--color-highlight);
+    background-color: var(--color-light);
+  }
+
+  .nav-menu-list li.selected:hover {
+     background-color: var(--color-highlight); 
+     color: var(--color-light);
+  }
+
 </style> 

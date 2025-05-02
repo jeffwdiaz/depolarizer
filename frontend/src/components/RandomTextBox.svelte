@@ -69,7 +69,7 @@
 
 </script>
 
-<div class="module random-text">
+<div class="random-text">
   {#each text as paragraph}
     <p>
       {paragraph} <!-- Render paragraph directly -->

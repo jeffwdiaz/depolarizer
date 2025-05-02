@@ -10,3 +10,5 @@ export { default as UrlInput } from './UrlInput.svelte';
 export { default as FillerImageBlock } from './FillerImageBlock.svelte';
 export { default as About } from './About.svelte';
 export { default as SplashOverlay } from './SplashOverlay.svelte';
+export { default as UrlInfo } from './UrlInfo.svelte';
+export { default as LoadingDots } from './LoadingDots.svelte';

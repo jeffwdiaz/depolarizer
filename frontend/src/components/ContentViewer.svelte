@@ -8,7 +8,7 @@
   import { fly } from 'svelte/transition';
 </script>
 
-<div class="module content-viewer" in:fly={{ y: -500, duration: 1000, delay: 500 }}>
+<div class="content-viewer" in:fly={{ y: -500, duration: 1000, delay: 500 }}>
   <article>
     <h2>Comer Refers Cuomo to DOJ for Criminal Prosecution</h2>
     
@@ -42,13 +42,18 @@
 
 <style>
   .content-viewer {
+    padding: 20px;
     font-family: var(--font-sans-serif);
   }
 
   h2 {
     font-size: 1.5rem;
+    text-align: center;
     margin: 0 0 1rem 0;
+    padding: 30px;
     line-height: 1.2;
+    background-color: var(--color-light);
+    color: var(--color-dark);
   }
 
   .article-meta {
