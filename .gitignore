@@ -5,6 +5,12 @@ frontend/node_modules/
 
 # Cursor AI state
 .cursor/
+node_modules/
+frontend/node_modules/
+# backend/node_modules/ # Removed as backend is Python/pip, not Node
+
+# Cursor AI state
+.cursor/
 
 # Output directories from various hosts/builds
 .output/       # Generic output directory (some hosts)
