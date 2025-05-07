@@ -89,6 +89,18 @@
 - [ ] Create retry logic for failed requests
 - [ ] Implement content validation and cleaning
 - [ ] **[Planned] Add ability to scrape article content from a URL and analyze it**
+    - [ ] **1. Update Dependencies:** Add `requests` and `beautifulsoup4` to backend `requirements.txt`.
+    - [ ] **2. Install Dependencies:** Run `pip install -r backend/requirements.txt` (or equivalent).
+    - [ ] **3. Create Scraping Module/Function:** Decide location (e.g., `backend/scraping.py`) and create `scrape_article_text(url: str)`.
+    - [ ] **4. Implement Scraping Logic:**
+        - [ ] Use `requests.get()` with a User-Agent.
+        - [ ] Handle HTTP errors (`response.raise_for_status()`).
+        - [ ] Parse HTML with `BeautifulSoup(response.content, 'html.parser')`.
+        - [ ] Identify and select HTML elements containing article text (e.g., using `soup.select()`).
+        - [ ] Extract and return text (`.get_text()`).
+    - [ ] **5. Create Backend Endpoint:** Define a new FastAPI endpoint (e.g., `/scrape/`) in `backend/main.py` accepting a URL.
+    - [ ] **6. Connect Endpoint to Logic:** Call `scrape_article_text` from the endpoint handler and return the result.
+    - [ ] **7. Refine and Test:** Test with various URLs, refine selectors, add error handling.
 
 ## Depolarization Algorithm
 

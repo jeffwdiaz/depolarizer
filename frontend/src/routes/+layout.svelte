@@ -92,7 +92,7 @@
     <Header />
     
     <div class="left-column">
-      <div class="module nav-menu module-dark" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
+      <div class="nav-menu" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
         <NavMenu />
       </div>
       
