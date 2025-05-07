@@ -1,5 +1,22 @@
 # deconstructed
 
+## How-to
+
+1.  **Start the Backend Server:**
+    *(Ensure your virtual environment is activated)*
+    ```bash
+    cd backend
+    uvicorn main:app --reload
+    # Server runs at http://localhost:8000
+    cd ..
+    ```
+2.  **Start the Frontend Dev Server:**
+    ```bash
+    cd frontend
+    npm run dev -- --open
+    # App runs at http://localhost:5173 (or next available port)
+    ```
+
 ## Project Overview
 
 `deconstructed` is a web application designed to combat division and distrust by presenting news content in a neutral, emotion-free manner. It fetches articles, analyzes them using an LLM backend (integrated with OpenRouter), and displays the deconstructed content through a SvelteKit frontend.
@@ -104,23 +121,6 @@ destructured/
     cd frontend
     npm install
     cd ..
-    ```
-
-### Running the Application
-
-1.  **Start the Backend Server:**
-    *(Ensure your virtual environment is activated)*
-    ```bash
-    cd backend
-    uvicorn main:app --reload
-    # Server runs at http://localhost:8000
-    cd ..
-    ```
-2.  **Start the Frontend Dev Server:**
-    ```bash
-    cd frontend
-    npm run dev -- --open
-    # App runs at http://localhost:5173 (or next available port)
     ```
 
 ## Backend LLM Integration Details
