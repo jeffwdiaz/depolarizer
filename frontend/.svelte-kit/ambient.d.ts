@@ -41,10 +41,10 @@ declare module '$env/static/private' {
 	export const CURSOR_TRACE_ID: string;
 	export const DriverData: string;
 	export const EDITOR: string;
-	export const EFC_8724_1262719628: string;
-	export const EFC_8724_1592913036: string;
-	export const EFC_8724_2775293581: string;
-	export const EFC_8724_3789132940: string;
+	export const EFC_18664_1262719628: string;
+	export const EFC_18664_1592913036: string;
+	export const EFC_18664_2775293581: string;
+	export const EFC_18664_3789132940: string;
 	export const FPS_BROWSER_APP_PROFILE_STRING: string;
 	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
@@ -55,6 +55,7 @@ declare module '$env/static/private' {
 	export const LANG: string;
 	export const LOCALAPPDATA: string;
 	export const LOGONSERVER: string;
+	export const NEWS_API_KEY: string;
 	export const NODE: string;
 	export const NODE_ENV: string;
 	export const npm_command: string;
@@ -66,6 +67,7 @@ declare module '$env/static/private' {
 	export const npm_config_node_gyp: string;
 	export const npm_config_noproxy: string;
 	export const npm_config_npm_version: string;
+	export const npm_config_open: string;
 	export const npm_config_prefix: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_user_agent: string;
@@ -92,6 +94,7 @@ declare module '$env/static/private' {
 	export const ProgramFiles: string;
 	export const ProgramW6432: string;
 	export const PROMPT: string;
+	export const PSExecutionPolicyPreference: string;
 	export const PSModulePath: string;
 	export const PUBLIC: string;
 	export const SESSIONNAME: string;
@@ -160,10 +163,10 @@ declare module '$env/dynamic/private' {
 		CURSOR_TRACE_ID: string;
 		DriverData: string;
 		EDITOR: string;
-		EFC_8724_1262719628: string;
-		EFC_8724_1592913036: string;
-		EFC_8724_2775293581: string;
-		EFC_8724_3789132940: string;
+		EFC_18664_1262719628: string;
+		EFC_18664_1592913036: string;
+		EFC_18664_2775293581: string;
+		EFC_18664_3789132940: string;
 		FPS_BROWSER_APP_PROFILE_STRING: string;
 		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
@@ -174,6 +177,7 @@ declare module '$env/dynamic/private' {
 		LANG: string;
 		LOCALAPPDATA: string;
 		LOGONSERVER: string;
+		NEWS_API_KEY: string;
 		NODE: string;
 		NODE_ENV: string;
 		npm_command: string;
@@ -185,6 +189,7 @@ declare module '$env/dynamic/private' {
 		npm_config_node_gyp: string;
 		npm_config_noproxy: string;
 		npm_config_npm_version: string;
+		npm_config_open: string;
 		npm_config_prefix: string;
 		npm_config_userconfig: string;
 		npm_config_user_agent: string;
@@ -211,6 +216,7 @@ declare module '$env/dynamic/private' {
 		ProgramFiles: string;
 		ProgramW6432: string;
 		PROMPT: string;
+		PSExecutionPolicyPreference: string;
 		PSModulePath: string;
 		PUBLIC: string;
 		SESSIONNAME: string;
