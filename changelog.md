@@ -235,3 +235,12 @@
 ### Removed
 - Old flexbox and max-width layout styles from `.main-content`.
 - Redundant/legacy header description and main-content column markup.
+
+## 2025-05-07 - Wednesday
+### Added
+- Tested and validated full-article scraping from NPR using `newspaper3k` with custom user-agent.
+- Confirmed NPR as a scraper-friendly source for politics articles.
+- Set groundwork for a new component based on NPR article: https://www.npr.org/2025/05/06/nx-s1-5387465/trump-carney-canada-tariffs
+
+### Fixed
+- Resolved `lxml.html.clean` ImportError by installing `lxml[html_clean]` for compatibility with `newspaper3k`.

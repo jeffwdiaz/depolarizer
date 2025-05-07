@@ -14,7 +14,7 @@
   // Menu items with their states
   let menuItems: MenuItem[] = [];
   const initialItems: MenuItem[] = [
-    { name: 'Reuters', selected: false },
+    { name: 'Politics', selected: false },
     { name: 'CNN', selected: false, strikethrough: true },
     { name: 'FOX', selected: false, strikethrough: true },
     { name: 'NPR', selected: false, strikethrough: true }

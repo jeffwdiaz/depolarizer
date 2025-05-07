@@ -16,6 +16,7 @@
     - Integrate OpenRouter LLM API.
     - Load context files from `backend/context`.
     - Analyze a specified article from `backend/articles` using context via `/analyze` endpoint.
+- [x] Successfully scraped and parsed full NPR article using `newspaper3k` (2025-05-07).
 
 ## Next Steps / In Progress
 
@@ -28,6 +29,9 @@
 - [ ] **Web Scraping Implementation:**
     - [ ] Add ability to scrape article content from a submitted URL (backend).
     - [ ] Create a new backend endpoint (e.g., `/scrape_and_analyze`) that takes a URL.
+- [ ] **Frontend NPR Article Component:**
+    - [ ] Create a new Svelte component to display the NPR article (https://www.npr.org/2025/05/06/nx-s1-5387465/trump-carney-canada-tariffs) using the scraped content.
+    - [ ] Integrate this component into the main UI for demonstration/testing.
 - [ ] **Refine UI/UX:**
     - [ ] Make `NavMenu.svelte` interactive (allow selecting different sources/views).
     - [ ] Replace `RandomTextBox.svelte` with actual content related to the selected Nav item or analysis.

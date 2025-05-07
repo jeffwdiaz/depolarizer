@@ -1,6 +1,18 @@
+# Python virtual environment
 /.venv/
+
+# Python cache files
 /**/__pycache__/
 *.pyc
+
+# SvelteKit build output
 /frontend/.svelte-kit/
+
+# Environment files
 .env
+
+# Cursor tool config
 .cursor/
+
+# Archived files (do not track old/unused files)
+archive/**

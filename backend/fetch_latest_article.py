@@ -11,10 +11,10 @@ import re
 # and this script is run in an environment where 'backend' is a discoverable package
 # or the PYTHONPATH is set up accordingly (e.g., run from project root).
 try:
-    from news_api import fetch_news
+    from .news_api import fetch_news
 except ImportError:
-    print("Error: Could not import 'fetch_news' from 'news_api.py'.")
-    print("Ensure 'news_api.py' is in the same directory or backend module is accessible.")
+    print("Error: Could not import 'fetch_news' from '.news_api'.")
+    print("Ensure '.news_api.py' is in the same directory or backend module is accessible.")
     print("You might need to run this script from the project root, e.g., using:")
     print("python -m backend.fetch_latest_article")
     exit(1)

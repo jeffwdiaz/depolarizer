@@ -3,12 +3,17 @@
 
 import os
 import httpx
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# Determine the path to the .env file (should be project root)
+dotenv_path = find_dotenv(usecwd=True) 
+
+# Load environment variables from .env file. 
+# override=True ensures that the .env file's values take precedence over system env vars.
+load_dotenv(dotenv_path=dotenv_path, override=True)
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+print(f"DEBUG: NEWS_API_KEY after verbose load: '{NEWS_API_KEY}'") # DEBUG LINE
 NEWS_API_BASE_URL = "https://newsapi.org/v2/everything"  # Example: get everything, adjust as needed
 
 async def fetch_news(query: str, sources: str | None = None, domains: str | None = None, language: str = "en", sortBy: str = "publishedAt"):
