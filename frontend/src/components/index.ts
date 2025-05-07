@@ -12,3 +12,4 @@ export { default as About } from './About.svelte';
 export { default as SplashOverlay } from './SplashOverlay.svelte';
 export { default as UrlInfo } from './UrlInfo.svelte';
 export { default as LoadingDots } from './LoadingDots.svelte';
+export { default as PoliticalNewsExample } from './PoliticalNewsExample.svelte';

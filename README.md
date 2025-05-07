@@ -1,4 +1,89 @@
-# deconstructed
+# Deconstructed News App
+
+## Project Overview
+This app analyzes and displays political news articles, highlighting polarizing language and providing dynamic article loading from a backend FastAPI server. The frontend is built with SvelteKit and uses a Vite proxy for seamless API access during development.
+
+## Project Goal
+- Scrape, store, and display political news articles dynamically.
+- Highlight polarizing language in news content.
+- Provide a modern, interactive UI for exploring news examples.
+
+## Tech Stack
+- **Frontend:** SvelteKit, Vite
+- **Backend:** FastAPI, Uvicorn
+- **Scraping:** newspaper3k (Python)
+- **Storage:** JSON files in `backend/political_articles`
+
+## Folder Structure
+```
+backend/
+  main.py                # FastAPI backend
+  scrape_article.py      # Script to scrape and save articles as JSON
+  political_articles/    # All scraped article JSON files
+frontend/
+  src/components/
+    PoliticalNewsExample.svelte  # Loads and displays the latest article
+  vite.config.ts         # Vite proxy config for /backend → FastAPI
+```
+
+## Workflow
+1. **Scrape an Article:**
+   - Run `python backend/scrape_article.py <article_url>`
+   - The script saves a JSON file in `backend/political_articles/`.
+2. **Backend API:**
+   - `/backend/list_articles` returns all available article JSON filenames.
+   - `/backend/article_json?filename=...` returns the content of a specific article.
+3. **Frontend:**
+   - `PoliticalNewsExample.svelte` fetches the list and loads the first article automatically (no dropdown).
+   - The article is displayed with title, authors, date, image, and text.
+
+## Development Setup
+1. **Backend:**
+   - Create and activate a virtual environment:
+     ```
+     python -m venv .venv
+     .\.venv\Scripts\Activate.ps1
+     pip install fastapi uvicorn python-dotenv httpx newspaper3k
+     ```
+   - Start the backend:
+     ```
+     uvicorn backend.main:app --reload
+     ```
+2. **Frontend:**
+   - Install dependencies:
+     ```
+     npm install
+     ```
+   - Start the dev server:
+     ```
+     npm run dev
+     ```
+   - The Vite proxy in `vite.config.ts` forwards `/backend` requests to FastAPI.
+
+## Proxy Setup
+- The Vite config rewrites `/backend` to `/` for the backend:
+  ```js
+  server: {
+    proxy: {
+      '/backend': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/backend/, '')
+      }
+    }
+  }
+  ```
+
+## Article Loading
+- The frontend always loads and displays the first available article in `backend/political_articles`.
+- No dropdown or manual selection is shown to the user.
+
+## Updating Articles
+- To add a new article, run the scraper script with the desired URL.
+- The new article will be available automatically in the frontend.
+
+---
+For more details, see the code and comments in `PoliticalNewsExample.svelte` and `backend/main.py`.
 
 ## How-to
 

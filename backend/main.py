@@ -7,6 +7,8 @@ import glob
 import httpx
 from dotenv import load_dotenv
 from .news_api import fetch_news
+from fastapi.responses import PlainTextResponse, JSONResponse
+import json
 
 # Load environment variables from .env file
 load_dotenv()
@@ -26,7 +28,7 @@ CONTEXT_DIR = os.path.join(os.path.dirname(__file__), "context")
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "openai/gpt-3.5-turbo"  # You can change this to another model if desired
-ARTICLES_DIR = os.path.join(os.path.dirname(__file__), "articles")
+POLITICAL_ARTICLES_DIR = os.path.join(os.path.dirname(__file__), "political_articles")
 
 class AnalyzeRequest(BaseModel):
     article_filename: str
@@ -45,7 +47,7 @@ def load_articles() -> List[str]:
     return articles
 
 def load_article(filename: str) -> Optional[str]:
-    file_path = os.path.join(ARTICLES_DIR, filename)
+    file_path = os.path.join(POLITICAL_ARTICLES_DIR, filename)
     if not os.path.isfile(file_path):
         return None
     with open(file_path, "r", encoding="utf-8") as f:
@@ -122,4 +124,24 @@ async def get_news(
         if "NEWS_API_KEY not found" in news_data["error"]:
              raise HTTPException(status_code=500, detail="News API key not configured on the server.")
         raise HTTPException(status_code=502, detail=f"Error fetching news from provider: {news_data['error']}")
-    return news_data 
+    return news_data
+
+@app.get("/article", response_class=PlainTextResponse)
+async def get_article(filename: str):
+    content = load_article(filename)
+    if content is None:
+        raise HTTPException(status_code=404, detail="Article not found.")
+    return content
+
+@app.get("/article_json", response_class=JSONResponse)
+async def get_article_json(filename: str):
+    file_path = os.path.join(POLITICAL_ARTICLES_DIR, filename)
+    if not os.path.isfile(file_path):
+        raise HTTPException(status_code=404, detail="Article not found.")
+    with open(file_path, 'r', encoding='utf-8') as f:
+        return JSONResponse(content=json.load(f))
+
+@app.get("/list_articles")
+async def list_articles():
+    files = [f for f in os.listdir(POLITICAL_ARTICLES_DIR) if f.endswith('.json')]
+    return {"files": files} 

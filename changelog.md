@@ -244,3 +244,18 @@
 
 ### Fixed
 - Resolved `lxml.html.clean` ImportError by installing `lxml[html_clean]` for compatibility with `newspaper3k`.
+
+### Changed
+- **PoliticalNewsExample.svelte**:
+  - Removed dropdown menu for article selection; now always loads and displays the first available article automatically.
+  - Fixed Svelte duplicate key error in paragraph rendering by using the index as the key.
+  - Improved error handling and loading state.
+- **Vite Proxy Config**:
+  - Updated proxy in `vite.config.ts` to rewrite `/backend` to `/` for correct backend API routing.
+
+### Fixed
+- Resolved 404 errors and proxy issues between frontend and backend.
+- Ensured FastAPI backend and Svelte frontend communicate seamlessly for article loading.
+
+### Documentation
+- Updated README to reflect new workflow, proxy setup, and dynamic article loading.

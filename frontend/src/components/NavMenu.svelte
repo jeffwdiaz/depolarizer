@@ -4,6 +4,7 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   
   interface MenuItem {
     name: string;
@@ -20,6 +21,8 @@
     { name: 'NPR', selected: false, strikethrough: true }
   ];
 
+  const dispatch = createEventDispatcher();
+
   onMount(() => {
     // Trigger animation by setting the items after mount
     menuItems = [...initialItems];
@@ -33,6 +36,11 @@
         <li 
           class:selected={item.selected}
           class:strikethrough={item.strikethrough}
+          on:click={() => {
+            if (item.name === 'Politics') {
+              dispatch('showPoliticalNews');
+            }
+          }}
         >
           {item.name}
         </li>

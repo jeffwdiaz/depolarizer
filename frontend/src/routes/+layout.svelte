@@ -14,7 +14,8 @@
     About,
     SplashOverlay,
     UrlInfo,
-    LoadingDots
+    LoadingDots,
+    PoliticalNewsExample
   } from '../components';
   import type { LayoutData } from './$types';
   import { onMount } from 'svelte'; // Keep onMount
@@ -24,6 +25,8 @@
   let phase1_components = false; // Was: showHeaderNavUrl
   let phase2_components = false; // Was: showOtherComponents
   let isLoadingPhase2 = false; // Add loading state variable
+  let showPoliticalNewsExample = false;
+  let isLoadingPoliticalNews = false;
   
   let autoDismissTimer: ReturnType<typeof setTimeout> | undefined = undefined; // Timer ID
 
@@ -55,7 +58,16 @@
     }, 7000); // 7000 milliseconds = 7 seconds
   }
 
-
+  function handleShowPoliticalNews() {
+    // Hide all main content
+    showPoliticalNewsExample = false;
+    isLoadingPoliticalNews = true;
+    // Show loading for 3 seconds, then show PoliticalNewsExample
+    setTimeout(() => {
+      isLoadingPoliticalNews = false;
+      showPoliticalNewsExample = true;
+    }, 3000);
+  }
 
   /*
 
@@ -93,7 +105,7 @@
     
     <div class="left-column">
       <div class="nav-menu" in:fly={{ x: -500, duration: 1000, delay: 500 }}>
-        <NavMenu />
+        <NavMenu on:showPoliticalNews={handleShowPoliticalNews} />
       </div>
       
       {#if phase2_components}
@@ -109,29 +121,35 @@
     </div>
     
     <div class="main-column">
-      {#if !isLoadingPhase2 && !phase2_components}
-        <div class="module about-module module-light" 
-             in:fly={{ y: -500, duration: 1000, delay: 500 }}
-             out:fade={{ duration: 300 }}>  
-          <About />
-        </div>
-      {/if}
-      
-      <!-- Show LoadingDots when isLoadingPhase2 is true -->
-      {#if isLoadingPhase2}
-        <div class="loading-module" 
-             in:fade={{ duration: 300 }}
-             out:fade={{ duration: 300 }}>
+      {#if isLoadingPoliticalNews}
+        <div class="loading-module" in:fade={{ duration: 300 }} out:fade={{ duration: 300 }}>
           <LoadingDots />
         </div>
-      {/if}
-
-      <!-- Show ContentViewer only when phase2 is active -->
-      {#if phase2_components}
-        <div class="module-light" 
-             in:fly={{ y: -500, duration: 1000, delay: 500 }}> 
-          <ContentViewer />
+      {:else if showPoliticalNewsExample}
+        <div class="module-light" in:fly={{ y: -500, duration: 1000, delay: 500 }}>
+          <PoliticalNewsExample />
         </div>
+      {:else}
+        {#if !isLoadingPhase2 && !phase2_components}
+          <div class="module about-module module-light" 
+               in:fly={{ y: -500, duration: 1000, delay: 500 }}
+               out:fade={{ duration: 300 }}>  
+            <About />
+          </div>
+        {/if}
+        {#if isLoadingPhase2}
+          <div class="loading-module" 
+               in:fade={{ duration: 300 }}
+               out:fade={{ duration: 300 }}>
+            <LoadingDots />
+          </div>
+        {/if}
+        {#if phase2_components}
+          <div class="module-light" 
+               in:fly={{ y: -500, duration: 1000, delay: 500 }}> 
+            <ContentViewer />
+          </div>
+        {/if}
       {/if}
       <slot />
     </div>
