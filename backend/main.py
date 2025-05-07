@@ -6,6 +6,7 @@ from typing import List, Optional
 import glob
 import httpx
 from dotenv import load_dotenv
+from .news_api import fetch_news
 
 # Load environment variables from .env file
 load_dotenv()
@@ -96,4 +97,29 @@ async def analyze(request: AnalyzeRequest):
         llm_response = await call_openrouter(prompt)
     except Exception as e:
         raise HTTPException(status_code=500, detail="An error occurred while processing your request.")
-    return AnalyzeResponse(result=llm_response) 
+    return AnalyzeResponse(result=llm_response)
+
+@app.get("/news")
+async def get_news(
+    query: str = Query(..., description="Search query for articles"),
+    sources: Optional[str] = Query(None, description="Comma-separated string of news sources (e.g., bbc-news,cnn)"),
+    domains: Optional[str] = Query(None, description="Comma-separated string of domains (e.g., bbc.co.uk,techcrunch.com)"),
+    language: Optional[str] = Query("en", description="Language of the articles (e.g., en, de, fr)"),
+    sortBy: Optional[str] = Query("publishedAt", description="Sort order (relevancy, popularity, publishedAt)")
+):
+    valid_sort_by = ["relevancy", "popularity", "publishedAt"]
+    if sortBy not in valid_sort_by:
+        raise HTTPException(status_code=400, detail=f"Invalid sortBy parameter. Allowed values are: {', '.join(valid_sort_by)}")
+
+    news_data = await fetch_news(
+        query=query,
+        sources=sources,
+        domains=domains,
+        language=language,
+        sortBy=sortBy
+    )
+    if "error" in news_data:
+        if "NEWS_API_KEY not found" in news_data["error"]:
+             raise HTTPException(status_code=500, detail="News API key not configured on the server.")
+        raise HTTPException(status_code=502, detail=f"Error fetching news from provider: {news_data['error']}")
+    return news_data 
