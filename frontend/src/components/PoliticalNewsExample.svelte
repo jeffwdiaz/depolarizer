@@ -11,6 +11,7 @@
   let error = '';
   let files: string[] = [];
   let selectedFile = '';
+  let articles: any[] = [];
 
   // Fetch the list of article JSON files on mount
   onMount(async () => {
@@ -36,12 +37,19 @@
         attempts++;
       }
       if (files.length === 0) throw new Error('No articles found after scraping');
-      // Automatically load and display each article in sequence
+      // Load all articles and store in articles array
+      articles = [];
       for (let i = 0; i < files.length; i++) {
-        selectedFile = files[i];
-        await loadArticle(selectedFile);
-        // Show each article for 5 seconds before moving to the next
-        await new Promise(r => setTimeout(r, 5000));
+        const file = files[i];
+        try {
+          const res = await fetch(`/backend/highlight_article?filename=${file}`);
+          if (res.ok) {
+            const art = await res.json();
+            articles.push(art);
+          }
+        } catch (e) {
+          // Skip failed articles
+        }
       }
     } catch (e) {
       error = (e as Error).message || 'Unknown error';
@@ -73,7 +81,7 @@
   {:else if error}
     <div class="error">{error}</div>
   {:else}
-    {#if article}
+    {#each articles as article}
       <article>
         <h2>{article.title}</h2>
         <div class="article-meta">
@@ -84,9 +92,6 @@
             {article.publish_date ? new Date(article.publish_date).toLocaleDateString() : ''}
           </span>
         </div>
-        {#if article.top_image}
-          <img src={article.top_image} alt="Article image" class="article-image" />
-        {/if}
         <div class="article-body">
           {@html article.highlighted_text || article.text}
         </div>
@@ -94,7 +99,7 @@
           <p><a href={article.url} target="_blank" rel="noopener">Read the original article</a></p>
         {/if}
       </article>
-    {/if}
+    {/each}
   {/if}
 </div>
 
