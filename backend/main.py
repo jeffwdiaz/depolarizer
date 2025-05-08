@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 from .news_api import fetch_news
 from fastapi.responses import PlainTextResponse, JSONResponse
 import json
+from .HighlightLang import highlight_article
+import subprocess
 
 # Load environment variables from .env file
 load_dotenv()
@@ -144,4 +146,38 @@ async def get_article_json(filename: str):
 @app.get("/list_articles")
 async def list_articles():
     files = [f for f in os.listdir(POLITICAL_ARTICLES_DIR) if f.endswith('.json')]
-    return {"files": files} 
+    return {"files": files}
+
+@app.get("/highlight_article", response_class=JSONResponse)
+async def highlight_article_endpoint(filename: str):
+    """
+    Returns the article JSON with an additional 'highlighted_text' field,
+    where polarizing language is highlighted by the LLM.
+    """
+    file_path = os.path.join(POLITICAL_ARTICLES_DIR, filename)
+    if not os.path.isfile(file_path):
+        raise HTTPException(status_code=404, detail="Article not found.")
+    try:
+        result = await highlight_article(file_path)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Highlighting failed: {e}")
+    return JSONResponse(content=result)
+
+@app.post("/scrape_politics")
+async def scrape_politics(background_tasks: BackgroundTasks):
+    """
+    Triggers scraping of 5 politics articles by running scrape_article.py as a subprocess.
+    Returns immediately with a success message; scraping runs in the background.
+    """
+    def run_scraper():
+        try:
+            result = subprocess.run([
+                "python", os.path.join(os.path.dirname(__file__), "scrape_article.py")
+            ], capture_output=True, text=True)
+            print("Scraper output:", result.stdout)
+            if result.stderr:
+                print("Scraper error output:", result.stderr)
+        except Exception as e:
+            print(f"Error running scraper: {e}")
+    background_tasks.add_task(run_scraper)
+    return {"success": True, "message": "Scraping started in background."} 

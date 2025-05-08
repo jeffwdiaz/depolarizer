@@ -26,7 +26,6 @@
   let phase2_components = false; // Was: showOtherComponents
   let isLoadingPhase2 = false; // Add loading state variable
   let showPoliticalNewsExample = false;
-  let isLoadingPoliticalNews = false;
   
   let autoDismissTimer: ReturnType<typeof setTimeout> | undefined = undefined; // Timer ID
 
@@ -60,13 +59,7 @@
 
   function handleShowPoliticalNews() {
     // Hide all main content
-    showPoliticalNewsExample = false;
-    isLoadingPoliticalNews = true;
-    // Show loading for 3 seconds, then show PoliticalNewsExample
-    setTimeout(() => {
-      isLoadingPoliticalNews = false;
-      showPoliticalNewsExample = true;
-    }, 3000);
+    showPoliticalNewsExample = true;
   }
 
   /*
@@ -121,12 +114,8 @@
     </div>
     
     <div class="main-column">
-      {#if isLoadingPoliticalNews}
-        <div class="loading-module" in:fade={{ duration: 300 }} out:fade={{ duration: 300 }}>
-          <LoadingDots />
-        </div>
-      {:else if showPoliticalNewsExample}
-        <div class="module-light" in:fly={{ y: -500, duration: 1000, delay: 500 }}>
+      {#if showPoliticalNewsExample}
+        <div class="module-light">
           <PoliticalNewsExample />
         </div>
       {:else}

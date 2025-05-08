@@ -4,6 +4,8 @@
 <!-- =============================== -->
 <script lang="ts">
   import { onMount } from 'svelte';
+  import LoadingDots from './LoadingDots.svelte';
+  import { fade } from 'svelte/transition';
   let article: any = null;
   let loading = false;
   let error = '';
@@ -15,13 +17,31 @@
     loading = true;
     error = '';
     try {
-      const res = await fetch('/backend/list_articles');
-      if (!res.ok) throw new Error('Failed to load article list');
-      const data = await res.json();
-      files = data.files;
-      if (files.length > 0) {
-        selectedFile = files[0];
+      // Trigger backend scraping
+      const scrapeRes = await fetch('/backend/scrape_politics', { method: 'POST' });
+      if (!scrapeRes.ok) throw new Error('Failed to start scraping');
+      // Wait for scraping to finish (poll for files)
+      let attempts = 0;
+      let maxAttempts = 30; // ~30 seconds
+      while (attempts < maxAttempts) {
+        const res = await fetch('/backend/list_articles');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.files && data.files.length > 0) {
+            files = data.files;
+            break;
+          }
+        }
+        await new Promise(r => setTimeout(r, 1000));
+        attempts++;
+      }
+      if (files.length === 0) throw new Error('No articles found after scraping');
+      // Automatically load and display each article in sequence
+      for (let i = 0; i < files.length; i++) {
+        selectedFile = files[i];
         await loadArticle(selectedFile);
+        // Show each article for 5 seconds before moving to the next
+        await new Promise(r => setTimeout(r, 5000));
       }
     } catch (e) {
       error = (e as Error).message || 'Unknown error';
@@ -30,12 +50,13 @@
     }
   });
 
+  // Fetch the highlighted article from the backend
   async function loadArticle(filename: string) {
     loading = true;
     error = '';
     article = null;
     try {
-      const res = await fetch(`/backend/article_json?filename=${filename}`);
+      const res = await fetch(`/backend/highlight_article?filename=${filename}`);
       if (!res.ok) throw new Error('Failed to load article');
       article = await res.json();
     } catch (e) {
@@ -48,7 +69,7 @@
 
 <div class="content-viewer">
   {#if loading}
-    <div>Loading...</div>
+    <div in:fade><LoadingDots /></div>
   {:else if error}
     <div class="error">{error}</div>
   {:else}
@@ -67,11 +88,7 @@
           <img src={article.top_image} alt="Article image" class="article-image" />
         {/if}
         <div class="article-body">
-          {#each article.text.split('\n') as para, i (i)}
-            {#if para.trim()}
-              <p>{para}</p>
-            {/if}
-          {/each}
+          {@html article.highlighted_text || article.text}
         </div>
         {#if article.url}
           <p><a href={article.url} target="_blank" rel="noopener">Read the original article</a></p>
