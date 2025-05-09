@@ -259,3 +259,13 @@
 
 ### Documentation
 - Updated README to reflect new workflow, proxy setup, and dynamic article loading.
+
+## 2025-05-08 - Wednesday
+### Changed
+- Frontend now loads and displays all articles in backend/political_articles below one another (no dropdown, no cycling).
+- Scraping is triggered from the frontend when the politics link is clicked.
+- The app now supports any number of articles in the folder (not just 5).
+
+### Added
+- Automatic loading and rendering of all available articles in the UI.
+- Updated README and START.md to reflect new workflow and usage.

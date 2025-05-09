@@ -1,4 +1,22 @@
-# To-Do List
+# To-Do Checklist
+
+## Project Goal
+- [x] Provide a simple interface to view and analyze the latest political news articles.
+- [x] Allow users to trigger scraping of new articles from the frontend.
+- [x] Display all available articles in a scrollable list, supporting any number of articles.
+
+## Completed Steps
+- [x] Backend: Add endpoint to trigger scraping of articles.
+- [x] Scraper: Save articles as JSON in backend/political_articles.
+- [x] Frontend: Trigger scraping from UI (politics link).
+- [x] Frontend: Load and display all articles below one another.
+- [x] Support any number of articles in the folder.
+- [x] Update documentation (README, changelog, START.md).
+
+## Next Steps
+- [ ] Add UI/UX improvements for article display (styling, section headers, etc.)
+- [ ] Add error handling for failed article loads.
+- [ ] (Optional) Add controls for manual refresh or re-scraping.
 
 ## Key Features Implemented / Tasks Completed
 

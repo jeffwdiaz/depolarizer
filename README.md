@@ -1,41 +1,43 @@
-# Deconstructed News App
+# Project Overview
 
-## Project Overview
-This app analyzes and displays political news articles, highlighting polarizing language and providing dynamic article loading from a backend FastAPI server. The frontend is built with SvelteKit and uses a Vite proxy for seamless API access during development.
+This project is a full-stack web application for scraping, analyzing, and displaying political news articles. The backend scrapes articles from a set of URLs, saves them as JSON files, and provides endpoints for the frontend to fetch and display them. The frontend allows users to trigger scraping and view all available articles at once.
 
 ## Project Goal
-- Scrape, store, and display political news articles dynamically.
-- Highlight polarizing language in news content.
-- Provide a modern, interactive UI for exploring news examples.
+- Provide a simple interface to view and analyze the latest political news articles.
+- Allow users to trigger scraping of new articles from the frontend.
+- Display all available articles in a scrollable list, supporting any number of articles.
 
 ## Tech Stack
-- **Frontend:** SvelteKit, Vite
-- **Backend:** FastAPI, Uvicorn
-- **Scraping:** newspaper3k (Python)
-- **Storage:** JSON files in `backend/political_articles`
+- **Backend:** Python, FastAPI, newspaper3k
+- **Frontend:** SvelteKit, TypeScript, CSS
+- **Other:** Uvicorn (ASGI server), Node.js (for frontend tooling)
 
 ## Folder Structure
 ```
-backend/
-  main.py                # FastAPI backend
-  scrape_article.py      # Script to scrape and save articles as JSON
-  political_articles/    # All scraped article JSON files
-frontend/
-  src/components/
-    PoliticalNewsExample.svelte  # Loads and displays the latest article
-  vite.config.ts         # Vite proxy config for /backend → FastAPI
+./
+├── backend/
+│   ├── main.py                # FastAPI backend
+│   ├── scrape_article.py      # Scraper script for articles
+│   ├── political_articles/    # Folder for scraped article JSON files
+│   └── ...
+├── frontend/
+│   ├── src/components/        # Svelte components
+│   ├── src/routes/            # SvelteKit routes
+│   └── ...
+├── .venv/                    # Python virtual environment
+├── README.md
+├── changelog.md
+├── to-do.md
+├── .gitignore
+├── START.md                  # Quick start instructions
+└── ...
 ```
 
-## Workflow
-1. **Scrape an Article:**
-   - Run `python backend/scrape_article.py <article_url>`
-   - The script saves a JSON file in `backend/political_articles/`.
-2. **Backend API:**
-   - `/backend/list_articles` returns all available article JSON filenames.
-   - `/backend/article_json?filename=...` returns the content of a specific article.
-3. **Frontend:**
-   - `PoliticalNewsExample.svelte` fetches the list and loads the first article automatically (no dropdown).
-   - The article is displayed with title, authors, date, image, and text.
+## Usage
+- Start both backend and frontend servers (see START.md).
+- Click the politics link in the UI to trigger scraping.
+- All articles in the backend/political_articles folder will be loaded and displayed below one another.
+- The app supports any number of articles present in the folder.
 
 ## Development Setup
 1. **Backend:**
